@@ -1,6 +1,6 @@
 <?php
 if (!defined('BASE_URL')) {
-    define('BASE_URL', 'http://localhost/forte_chance/pizzeria/');
+    define('BASE_URL', 'http://localhost/ristorante-tradizione/');
 }
 
 include __DIR__ . '/../config/config.php';

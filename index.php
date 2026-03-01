@@ -2,7 +2,7 @@
 include './app/controllers/maintenance.php';
 ?>
 <?php
-define('BASE_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/forte_chance/pizzeria/');
+define('BASE_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/ristorante-tradizione/');
 
 include './app/config/config.php';
 

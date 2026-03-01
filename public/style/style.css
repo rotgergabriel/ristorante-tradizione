@@ -367,7 +367,6 @@ h2 {
     color: rgb(186, 186, 186);
 }
 
-
 /* Main */
 .main {
     display: flex;
@@ -662,7 +661,6 @@ h2 {
 .ricette__overlay.visible {
     display: flex;
 }
-
 
 /* Vini */
 .vini {
@@ -1074,7 +1072,6 @@ h2 {
     width: 100%;
     max-width: 500px;
 }
-
 
 /* Estilos de Botones */
 .btn-primary,
@@ -1542,7 +1539,6 @@ h2 {
     transition: background-color 0.3s;
     font-size: 14px;
     display: inline-block;
-    /* Asegura buen comportamiento */
 }
 
 .btn-primary {

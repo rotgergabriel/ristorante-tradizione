@@ -7,9 +7,9 @@ const header = document.querySelector('.header');
 
 // Usamos rutas absolutas para las imágenes para que no fallen en subcarpetas
 const images = [
-    '/forte_chance/pizzeria/public/assets/img/cerrar-las-manos-sosteniendo-el-plato-de-comida.webp',
-    '/forte_chance/pizzeria/public/assets/img/chef-profesional-preparando-comida-en-la-cocina.webp',
-    '/forte_chance/pizzeria/public/assets/img/sabrosa-receta-italiana-de-pizza-tradicional-casera.webp'
+    '/ristorante-tradizione/public/assets/img/cerrar-las-manos-sosteniendo-el-plato-de-comida.webp',
+    '/ristorante-tradizione/public/assets/img/chef-profesional-preparando-comida-en-la-cocina.webp',
+    '/ristorante-tradizione/public/assets/img/sabrosa-receta-italiana-de-pizza-tradicional-casera.webp'
 ];
 
 if (header) {
