@@ -15,7 +15,7 @@ if (!defined('BASE_URL')) {
 <body class="cuerpo-login">
     <div class="contenedor-principal">
         <div class="caja-login">
-            <h1 class="titulo-login">Accedi</h1>
+            <h1 class="titulo-login">Area Riservata</h1>
 
             <form action="<?php echo BASE_URL; ?>app/controllers/loginController.php" method="POST" class="formulario-login">
 
@@ -34,7 +34,7 @@ if (!defined('BASE_URL')) {
                 </p>
 
                 <p class="enlace-olvido">
-                    <a href="#" class="enlace-secundario">Hai dimenticato la tua password?</a>
+                    <a href="<?php echo BASE_URL ?>" class="enlace-secundario">← Torna alla Home</a>
                 </p>
             </form>
         </div>
