@@ -12,14 +12,6 @@ Per questo progetto è stata seguita una metodologia di design preventiva. È po
 
 ---
 
-## 🎨 Design e Prototipazione (Figma)
-
-Il design visivo e l'architettura delle informazioni sono disponibili su Figma. Puoi consultare i wireframe e il flusso di navigazione al seguente link:
-
-[![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)](https://www.figma.com/design/TOzWcIeQ6Ahs8P3L9Z8Tt2/Wireframe---Pizzeria?node-id=0-1&p=f&t=RE54bmQshkSnCI8P-0)
-
----
-
 ## 🗄️ Struttura del Database
 
 Il progetto utilizza **MySQL** (MariaDB) con le seguenti tabelle principali per la gestione dei contenuti e degli utenti:
