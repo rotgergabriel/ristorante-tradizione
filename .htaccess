@@ -1,0 +1,12 @@
+RewriteEngine On
+
+RewriteBase /ristorante-tradizione/
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/ristorante-tradizione/public/
+RewriteRule ^([^/]+)$ public/index.php?view=$1 [L,QSA]
+
+RewriteRule ^$ public/index.php?view=index [L,QSA]
+
+Options -Indexes -MultiViews

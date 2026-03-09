@@ -1,0 +1,13 @@
+RewriteEngine On
+RewriteBase /ristorante-tradizione/public/
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+RewriteRule ^index\.php$ - [L]
+
+Options -Indexes
+<FilesMatch "\.(json|log|ini|md|gitkeep)$">
+    Require all denied
+</FilesMatch>
