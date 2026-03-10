@@ -1,11 +1,5 @@
-/**
- * CONTROLADOR DE TRANSICIONES Y UI
- */
-
-// 1. Controlador del carrusel (Solo para el Index)
 const header = document.querySelector('.header');
 
-// Usamos rutas absolutas para las imágenes para que no fallen en subcarpetas
 const images = [
     '/ristorante-tradizione/public/assets/img/cerrar-las-manos-sosteniendo-el-plato-de-comida.webp',
     '/ristorante-tradizione/public/assets/img/chef-profesional-preparando-comida-en-la-cocina.webp',
@@ -14,22 +8,25 @@ const images = [
 
 if (header) {
     let index = 0;
+
     function changeBackground() {
-        header.style.backgroundImage = `url('${images[index]}'), linear-gradient(grey, grey)`;
+        header.style.backgroundImage = `url('${images[index]}')`;
+
         index = (index + 1) % images.length;
+
+        const nextImage = new Image();
+        nextImage.src = images[index];
     }
+
     changeBackground();
     setInterval(changeBackground, 5000);
 }
-
-// 2. Controlador del Menú Overlay (Navbar)
 const menuOverlay = document.querySelector('.header__menu-overlay');
 const openButton = document.querySelector('.header__menu-toggle');
 const closeButton = document.querySelector('.menu__close');
 const linkButtons = document.querySelectorAll('.menu-overlay__item');
 const searchInput = document.querySelector('.menu-overlay__form input[type="search"]');
 
-// Solo registramos los eventos si los botones existen en el DOM
 if (openButton && menuOverlay) {
     openButton.addEventListener('click', (event) => {
         event.preventDefault();
@@ -51,7 +48,6 @@ linkButtons.forEach(link => {
     });
 });
 
-// 3. Controlador de Popups de Recetas (Ricette Overlay)
 const openPopupButtons = document.querySelectorAll('.popup-open');
 
 if (openPopupButtons.length > 0) {
@@ -59,17 +55,14 @@ if (openPopupButtons.length > 0) {
         button.addEventListener('click', (event) => {
             event.preventDefault();
 
-            // Identificar el contenedor y el overlay específico
             const article = button.closest('.ricette__content');
             if (!article) return;
 
             const specificOverlay = article.querySelector('.ricette__overlay');
             if (specificOverlay) {
-                // Abrir el overlay específico
                 specificOverlay.classList.add('visible');
                 document.body.style.overflow = 'hidden';
 
-                // Obtener el botón de cierre específico
                 const currentCloseButton = specificOverlay.querySelector('.popup__close');
 
                 if (currentCloseButton) {
@@ -80,7 +73,6 @@ if (openPopupButtons.length > 0) {
                     }, { once: true });
                 }
 
-                // Cierre al hacer click en el fondo (fuera del contenido)
                 specificOverlay.addEventListener('click', (e) => {
                     if (e.target === specificOverlay) {
                         specificOverlay.classList.remove('visible');
