@@ -165,7 +165,7 @@ h2 {
     margin: 0 auto;
 }
 
-/* Header */
+/* Header section*/
 .header {
     height: 100vh;
     background-size: cover;
@@ -183,7 +183,7 @@ h2 {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    /* height: 100px; */
+    padding-bottom: 10px;
     z-index: 20;
     background: rgba(0, 0, 0, 0.25);
 }
@@ -277,9 +277,13 @@ h2 {
     text-align: center;
     color: white;
     position: absolute;
-    bottom: 20%;
+    bottom: 30%;
     left: 50%;
     transform: translate(-50%, 50%);
+    text-shadow:
+        1px 1px 2px rgba(0, 0, 0, 0.8),
+        0px 0px 15px rgba(0, 0, 0, 0.5),
+        0px 0px 30px rgba(0, 0, 0, 0.3);
 }
 
 .header__title>div>p {
@@ -298,6 +302,7 @@ h2 {
     top: 0;
     left: 0;
     text-align: center;
+    z-index: 30;
 }
 
 .menu__close {
@@ -367,7 +372,7 @@ h2 {
     color: rgb(186, 186, 186);
 }
 
-/* Main */
+/* Main section*/
 .main {
     display: flex;
     flex-direction: column;
@@ -388,7 +393,7 @@ h2 {
     padding: 0 20px;
 }
 
-/* Carrousel */
+/* Carrousel section*/
 .carrousel {
     display: flex;
     flex-direction: row;
@@ -445,18 +450,18 @@ h2 {
     left: 50%;
     transform: translate(-50%, -50%) translateY(700px);
     background: rgba(0, 0, 0, 0.85);
-    width: 100%;
+    width: calc(100% - 10px);
     height: 100%;
     z-index: 10;
     opacity: 0;
     transition: opacity 0.9s ease, transform 0.9s ease;
     color: white;
     padding: 10px;
-
 }
 
 .overlay__title {
     padding: 20px;
+    border-bottom: 2px solid #007bff;
 }
 
 .overlay__text {
@@ -475,7 +480,7 @@ h2 {
     visibility: hidden;
 }
 
-/* Ricette */
+/* Ricette section */
 .ricette {
     display: flex;
     flex-direction: column;
@@ -559,7 +564,6 @@ h2 {
     text-align: center;
 }
 
-/* Contenedor de botones y rating */
 .ricette__item--buttons {
     display: flex;
     flex-direction: row;
@@ -569,19 +573,16 @@ h2 {
     gap: 5px;
 }
 
-/* Estilo base para todas las estrellas */
 .star {
     font-size: 1.1rem;
     color: #ffc107;
     display: inline-block;
 }
 
-/* Estrella vacía: Gris */
 .star.empty {
     color: #e4e5e9;
 }
 
-/* Estrella media: Efecto visual de mitad */
 .star.half {
     position: relative;
     color: #e4e5e9;
@@ -610,7 +611,6 @@ h2 {
     cursor: pointer;
 }
 
-/* Fondo oscuro */
 .ricette__overlay {
     display: none;
     position: fixed;
@@ -622,7 +622,6 @@ h2 {
     z-index: 1000;
 }
 
-/* Caja del popup */
 .ricette__item--overlay {
     display: flex;
     flex-direction: column;
@@ -636,12 +635,10 @@ h2 {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-/* Título */
 .ricette__item--overlay h3 {
     text-align: center;
 }
 
-/* Botón cerrar */
 .popup__close {
     position: sticky;
     top: 2.5px;
@@ -657,12 +654,11 @@ h2 {
     color: #e63946;
 }
 
-/* Clase que JS añadirá para mostrar el popup */
 .ricette__overlay.visible {
     display: flex;
 }
 
-/* Vini */
+/* Vini section*/
 .vini {
     display: flex;
     flex-direction: row;
@@ -708,7 +704,6 @@ h2 {
     object-fit: cover;
 }
 
-/* Up button */
 .boton-ir-arriba {
     position: fixed;
     bottom: 50px;
@@ -747,7 +742,7 @@ h2 {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Footer */
+/* Footer section*/
 .footer {
     position: relative;
     display: flex;
@@ -780,6 +775,7 @@ h2 {
 }
 
 .footer__author>a {
+    width: 100%;
     position: absolute;
     bottom: 20px;
     left: 50%;
@@ -793,8 +789,7 @@ h2 {
     display: none;
 }
 
-/* ESTILOS BASE Y CENTRADO DE LA PÁGINA (Login)
-/* 1. Centrado Total */
+/* Login section */
 .cuerpo-login {
     margin: 0;
     padding: 0;
@@ -808,13 +803,11 @@ h2 {
     padding-bottom: 20px;
 }
 
-/* 2. Contenedor Principal (Gestión del espacio) */
 .contenedor-principal {
     width: 100%;
     padding: 20px;
 }
 
-/* 3. La Caja del Formulario (Define el tamaño y la estética) */
 .caja-login {
     width: 100%;
     max-width: 380px;
@@ -826,7 +819,6 @@ h2 {
     text-align: center;
 }
 
-/* ESTILOS DE COMPONENTES DEL FORMULARIO             */
 .titulo-login {
     font-size: 26px;
     color: #007bff;
@@ -838,7 +830,6 @@ h2 {
     text-align: left;
 }
 
-/* Contenedores y Campos de Login */
 .campo-contenedor {
     margin-bottom: 20px;
     display: flex;
@@ -905,7 +896,7 @@ h2 {
     text-decoration: underline;
 }
 
-/* ESTILOS GENERALES ADMIN */
+/* Admin section */
 .admin-body {
     margin: 0;
     padding: 0;
@@ -1023,7 +1014,6 @@ h2 {
     padding: 10px;
 }
 
-/* Contenedor principal */
 .search-input-actions,
 .filter-input-actions {
     display: flex;
@@ -1073,7 +1063,6 @@ h2 {
     max-width: 500px;
 }
 
-/* Estilos de Botones */
 .btn-primary,
 .btn-secondary,
 .btn-danger {
@@ -1115,7 +1104,6 @@ h2 {
     background-color: #c0392b;
 }
 
-/* Estilos de la Barra de Acciones */
 .form-actions-edit {
     margin-top: 30px;
     display: flex;
@@ -1137,7 +1125,7 @@ h2 {
     order: 1;
 }
 
-/* Pie de página (Footer) */
+/* Admin footer section */
 .admin-footer {
     text-align: center;
     padding: 10px;
@@ -1296,6 +1284,7 @@ h2 {
         flex-direction: row;
         justify-content: space-around;
         padding-top: 0;
+        padding-bottom: 0px;
         height: 80px;
     }
 
@@ -1372,7 +1361,7 @@ h2 {
     }
 }
 
-/* ESTILOS GENERALES ADMIN */
+/* Admin section*/
 .admin-body {
     margin: 0;
     padding: 0;
@@ -1421,7 +1410,7 @@ h2 {
     padding: 20px;
 }
 
-/* LAYOUT DASHBOARD */
+/* Dashboard section */
 .dashboard-container {
     display: flex;
     flex-wrap: wrap;
@@ -1449,7 +1438,6 @@ h2 {
     font-size: 22px;
 }
 
-/* FORMULARIOS Y BUSQUEDA - Agrupado para evitar repetición */
 .form-group {
     margin-bottom: 20px;
     display: flex;
@@ -1462,7 +1450,6 @@ h2 {
     color: #555;
 }
 
-/* Unificación de estilos para todos los inputs */
 .recipe-form input[type="text"],
 .recipe-form input[type="file"],
 .recipe-form textarea,
@@ -1490,7 +1477,6 @@ h2 {
     outline: none;
 }
 
-/* LISTA DE RECETAS */
 .recipe-list {
     display: flex;
     flex-direction: column;
@@ -1523,7 +1509,6 @@ h2 {
     gap: 8px;
 }
 
-/* ESTILOS DE BOTONES - Base común */
 .btn-primary,
 .btn-secondary,
 .btn-danger,
@@ -1564,7 +1549,6 @@ h2 {
     color: white;
 }
 
-/* Botones pequeños optimizados */
 .btn-update-small,
 .btn-delete-small {
     padding: 6px 10px;
@@ -1588,7 +1572,6 @@ h2 {
     background-color: #ff0000;
 }
 
-/* ACCIONES Y FOOTER */
 .form-actions-edit {
     margin-top: 30px;
     display: flex;
@@ -1622,7 +1605,76 @@ h2 {
     color: #777;
 }
 
-/* RESPONSIVE */
+/* 503 section */
+.aligner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.item {
+    max-width: 400px;
+    flex: 1;
+    text-align: center;
+    font-family: "League Spartan", sans-serif;
+    padding: 20px;
+}
+
+.item img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+}
+
+.item h1 {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    font-size: 100px;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.item h2 {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    font-size: 28px;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.item p {
+    color: #555;
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+.item .btn {
+    display: inline-block;
+    background-color: #7CB108;
+    color: #ffffff;
+    border-radius: 6px;
+    padding: 14px 24px;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.item .btn:hover {
+    background-color: #6a9606;
+    transform: translateY(-2px);
+}
+
+.item .btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Media query */
 @media (max-width: 1024px) {
     .dashboard-container {
         flex-direction: column;
