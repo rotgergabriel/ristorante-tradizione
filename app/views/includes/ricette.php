@@ -1,5 +1,5 @@
 <section class="forms-container">
-    <form action="<?php echo BASE_URL; ?>app/views/all_recipes.php" method="GET" class="search-form">
+    <form action="<?php echo BASE_URL; ?>all_recipes" method="GET" class="search-form">
         <div class="form-group search-group">
             <label for="search_id">Cerca per Titolo:</label>
             <div class="search-input-actions">
@@ -8,7 +8,7 @@
             </div>
         </div>
     </form>
-    <form action="<?php echo BASE_URL; ?>app/views/all_recipes.php" method="GET" class="filter-form">
+    <form action="<?php echo BASE_URL; ?>all_recipes" method="GET" class="filter-form">
         <div class="form-group filter-group">
             <label for="selection-menu">Lista delle ricette:</label>
             <div class="filter-input-actions">
@@ -85,6 +85,6 @@
         <?php } ?>
     </section>
     <footer class="ricette__footer">
-        <a href="<?php echo BASE_URL; ?>app/views/all_recipes.php" target="_blank">VEDI TUTTE LE RICETTE</a>
+        <a href="<?php echo BASE_URL; ?>all_recipes" target="_blank">VEDI TUTTE LE RICETTE</a>
     </footer>
 </section>

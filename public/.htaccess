@@ -1,0 +1,14 @@
+RewriteEngine On
+RewriteBase /ristorante-tradizione/public/
+
+# Si es un archivo o directorio real, se sirve directamente (CSS, JS, Imágenes)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Todo lo demás va al index.php
+RewriteRule ^(.*)$ index.php [L,QSA]
+
+Options -Indexes
+<FilesMatch "\.(json|log|ini|md|gitkeep)$">
+    Require all denied
+</FilesMatch>

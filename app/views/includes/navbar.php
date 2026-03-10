@@ -1,6 +1,6 @@
 <section id="home" class="header__nav">
     <div class="header__logo">
-        <a href="<?php echo BASE_URL ?>/index.php">
+        <a href="<?php echo BASE_URL ?>">
             <img fetchpriority="high"
                 src="<?php echo BASE_URL ?>public/assets/img/ristorante_tradizione.png"
                 class="attachment-full size-full wp-image-86" alt="logo ristorate tradizione"

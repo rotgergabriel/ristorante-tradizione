@@ -1,0 +1,9 @@
+RewriteEngine On
+RewriteBase /ristorante-tradizione/
+
+# Evita bucles infinitos si ya estamos en public
+RewriteCond %{REQUEST_URI} !^/ristorante-tradizione/public/
+# Redirige todo a la carpeta public conservando la URL original
+RewriteRule ^(.*)$ public/$1 [L]
+
+Options -Indexes -MultiViews
