@@ -1,10 +1,6 @@
 <?php
-include './app/controllers/maintenance.php';
-?>
-<?php
-define('BASE_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/ristorante-tradizione/');
-
-include './app/config/config.php';
+require_once '../app/config/config.php';
+require_once  '../app/controllers/maintenance.php';
 
 $sql_lista = "SELECT title FROM recipes ORDER BY title ASC";
 $res_lista = mysqli_query($conn, $sql_lista);
@@ -51,7 +47,7 @@ while ($row = mysqli_fetch_assoc($stmt)) {
             <div class="bg bg3"></div>
             <!-- Header Nav Section -->
             <?php
-            include './app/views/includes/navbar.php';
+            require_once '../app/views/includes/navbar.php';
             ?>
             <!-- Overlay container hidden menu -->
             <section class="header__menu-overlay">
@@ -81,7 +77,7 @@ while ($row = mysqli_fetch_assoc($stmt)) {
                 <!-- <div class="header__divider"></div> -->
                 <section class="admin-link">
                     <div class="admin-link__container">
-                        <a href="<?php echo BASE_URL; ?>app/views/login.php" class="admin-link__link">
+                        <a href="<?php echo BASE_URL; ?>login" class="admin-link__link">
                             Pannello di Amministrazione
                         </a>
                     </div>
@@ -147,7 +143,7 @@ while ($row = mysqli_fetch_assoc($stmt)) {
             </section>
             <!-- Ricette section -->
             <?php
-            include './app/views/includes/ricette.php';
+            require_once '../app/views/includes/ricette.php';
             ?>
             <!-- Punti di forza section -->
             <section id="punti_di_forza" class="text-block">
@@ -206,7 +202,7 @@ while ($row = mysqli_fetch_assoc($stmt)) {
         </main>
         <!-- Footer -->
         <?php
-        include './app/views/includes/footer.php';
+        require_once '../app/views/includes/footer.php';
         ?>
     </div>
     <script type="module" src="<?php echo BASE_URL; ?>public/js/uiTransitionsController.js"></script>
