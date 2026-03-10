@@ -1,12 +1,9 @@
 RewriteEngine On
-
 RewriteBase /ristorante-tradizione/
 
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+# Evita bucles infinitos si ya estamos en public
 RewriteCond %{REQUEST_URI} !^/ristorante-tradizione/public/
-RewriteRule ^([^/]+)$ public/index.php?view=$1 [L,QSA]
-
-RewriteRule ^$ public/index.php?view=index [L,QSA]
+# Redirige todo a la carpeta public conservando la URL original
+RewriteRule ^(.*)$ public/$1 [L]
 
 Options -Indexes -MultiViews
