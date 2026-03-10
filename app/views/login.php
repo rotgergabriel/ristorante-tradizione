@@ -1,8 +1,3 @@
-<?php
-if (!defined('BASE_URL')) {
-    define('BASE_URL', 'http://localhost/ristorante-tradizione/');
-}
-?>
 <!DOCTYPE html>
 <html lang="it">
 
@@ -17,7 +12,7 @@ if (!defined('BASE_URL')) {
         <div class="caja-login">
             <h1 class="titulo-login">Area Riservata</h1>
 
-            <form action="<?php echo BASE_URL; ?>app/controllers/loginController.php" method="POST" class="formulario-login">
+            <form action="<?php echo BASE_URL; ?>loginController" method="POST" class="formulario-login">
 
                 <p class="campo-contenedor">
                     <label for="user_name" class="etiqueta-login">Utente</label>
