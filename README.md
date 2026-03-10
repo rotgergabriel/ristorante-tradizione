@@ -1,5 +1,53 @@
-# ristorante-tradizione
-Ristorante pizzeria - Tradizione
+# 🍕 Ristorante Pizzeria - Tradizione
+> Un'esperienza culinaria digitale: Sistema di gestione ricette e menu sviluppato in PHP e MySQL.
+
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+[![PHP Version](https://img.shields.io/badge/PHP-8.2.12-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/)
+[![MySQL](https://img.shields.io/badge/MySQL-10.4.32-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
+![SQL](https://img.shields.io/badge/SQL-CC2927?style=for-the-badge&logo=sqlite&logoColor=white)
+[![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)](https://www.figma.com/design/TOzWcIeQ6Ahs8P3L9Z8Tt2/Wireframe---Pizzeria?node-id=0-1&p=f&t=RE54bmQshkSnCI8P-0)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
+
+---
+
+## 📖 Descrizione
+**Tradizione** è una piattaforma web progettata per un ristorante-pizzeria che permette di gestire e visualizzare un catalogo completo di ricette autentiche. Il progetto si concentra sulla semplicità d'uso e sulla fedeltà alle preparazioni classiche italiane.
+
+### ✨ Caratteristiche Principali
+* **Catalogo Ricette**: Visualizzazione dettagliata con tempi di preparazione, descrizioni e processi completi.
+* **Sistema di Valutazione**: Ogni piatto include un punteggio (rating) basato sull'esperienza degli utenti.
+* **Area Riservata**: Accesso sicuro per gli amministratori per gestire i contenuti del menu.
+* **Design Responsivo**: Progettato meticolosamente su Figma per garantire un'ottima esperienza su ogni dispositivo.
+
+## 📂 Struttura del Progetto
+
+Il progetto è organizzato seguendo un'architettura **MVC (Model-View-Controller)** semplificata, che separa la logica di gestione dei dati dall'interfaccia utente:
+
+```text
+RISTORANTE-TRADIZIONE
+├── app/
+│   ├── config/          # File di configurazione (DB, costanti, parametri globali)
+│   ├── controllers/     # Logica di controllo: elabora le richieste e gestisce i dati
+│   ├── models/          # Logica dei dati: classi e funzioni per l'interazione con il database
+│   └── views/           # Interfaccia utente: file PHP/HTML e componenti del layout (header/footer)
+├── public/              # Punto di accesso pubblico (Root del server)
+│   ├── assets/          # Risorse statiche: immagini delle ricette e icone
+│   ├── js/              # Script per il comportamento lato client
+│   ├── style/           # Fogli di stile CSS per il design responsivo
+│   └── index.php        # Front Controller: gestisce tutte le richieste in entrata
+├── .htaccess            # Regole di configurazione del server e URL puliti
+└── README.md            # Documentazione del progetto
+```
+💡 Organizzazione dei Contenuti
+Logica Applicativa (app/): Questa cartella contiene il nucleo del sistema. È protetta dall'accesso diretto via browser per garantire la sicurezza del codice e delle credenziali del database.
+
+Accesso Pubblico (public/): Contiene solo i file che devono essere caricati dal browser (CSS, JS, Immagini). Il file index.php funge da unico punto di ingresso per l'intera applicazione.
+
+Separazione delle Responsabilità: I Controller ricevono gli input, i Model interagiscono con il database pizzeria_db e le View si occupano esclusivamente della visualizzazione dei dati all'utente.
+
+---
 
 ## 🎨 Design del Progetto (Figma)
 
@@ -9,14 +57,6 @@ Per questo progetto è stata seguita una metodologia di design preventiva. È po
 
 > [!TIP]
 > Puoi visualizzare l'architettura delle informazioni e il flusso di navigazione dell'utente nel link sopra indicato.
-
----
-
-## 🎨 Design e Prototipazione (Figma)
-
-Il design visivo e l'architettura delle informazioni sono disponibili su Figma. Puoi consultare i wireframe e il flusso di navigazione al seguente link:
-
-[![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)](https://www.figma.com/design/TOzWcIeQ6Ahs8P3L9Z8Tt2/Wireframe---Pizzeria?node-id=0-1&p=f&t=RE54bmQshkSnCI8P-0)
 
 ---
 
@@ -77,6 +117,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 ```
+
 ### 2. Caricamento dei Dati Iniziali (Seeders)
 Inserisci questi dati di esempio per testare le funzionalità:
 ```sql
@@ -91,3 +132,16 @@ INSERT INTO `recipes` (`title`, `subtitle`, `description`, `complete_process`, `
 ('Quattro Formaggi Bianca', 'Sinfonia di latticini', 'Una prelibatezza senza pomodoro.', '1. Selezione... 2. Base... 3. Cottura...', '25 min', 4.7, NULL),
 ('Pizza Napoletana STG', 'Specialità Tradizionale Garantita', 'Il disciplinare ufficiale della pizza napoletana.', '1. Impasto... 2. Stesura... 3. Condimento...', '20 min', 4.8, NULL);
 ```
+---
+
+### 📜 Licenza
+Questo progetto è distribuito sotto la licenza **MIT**. Consulta il file `LICENSE` per ulteriori dettagli.
+
+<p align="center">
+  Realizzato con ❤️ da <strong>Rotger Gabriel Augusto</strong><br>
+  <i>"La vera tradizione si impasta con passione."</i>
+</p>
+
+<p align="center">
+  <a href="#top">🔼 Torna all'inizio</a>
+</p>
