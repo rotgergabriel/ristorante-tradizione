@@ -24,16 +24,9 @@ while ($row = mysqli_fetch_assoc($stmt)) {
 <html lang="it">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>public/style/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Dancing+Script:wght@400..700&family=IBM+Plex+Mono:wght@100..700&family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:wght@100..900&family=Open+Sans:wght@300..800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="<?php echo BASE_URL; ?>public/assets/icons/favicon-16x16.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <title>Ristorante Pizzeria Tradizione - Tutte le ricette</title>
+    <?php
+    include_once __DIR__ . '/includes/head.php';
+    ?>
 </head>
 
 <body class="page-all-recipes">
@@ -58,6 +51,9 @@ while ($row = mysqli_fetch_assoc($stmt)) {
         include __DIR__ . '/includes/footer.php';
         ?>
     </div>
+    <?php
+    include_once __DIR__ . '/includes/footer.php';
+    ?>
     <script type="module" src="<?php echo BASE_URL; ?>public/js/uiTransitionsController.js"></script>
 </body>
 
