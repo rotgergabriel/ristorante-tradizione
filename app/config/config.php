@@ -44,3 +44,5 @@ if ($is_dev_env) {
 }
 
 $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
+require_once __DIR__ . '/../controllers/maintenance.php';

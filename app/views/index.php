@@ -1,6 +1,5 @@
 <?php
 require_once '../app/config/config.php';
-require_once  '../app/controllers/maintenance.php';
 
 $sql_lista = "SELECT title FROM recipes ORDER BY title ASC";
 $res_lista = mysqli_query($conn, $sql_lista);
