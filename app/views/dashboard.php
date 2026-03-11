@@ -5,7 +5,7 @@ if (isset($_POST['delete_id'])) {
     $id_delete = (int)$_POST['delete_id'];
     $sql_delete = "DELETE FROM recipes WHERE id = $id_delete";
     mysqli_query($conn, $sql_delete);
-    header("Location: " . BASE_URL . "admin");
+    header("Location: " . BASE_URL . "dashboard");
     exit();
 }
 
@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
         }
 
         if (mysqli_query($conn, $sql)) {
-            echo "<script>alert('$message'); window.location.href='" . BASE_URL . "admin';</script>";
+            echo "<script>alert('$message'); window.location.href='" . BASE_URL . "dashboard';</script>";
             exit();
         } else {
             echo "<div style='color:red;'>Errore: " . mysqli_error($conn) . "</div>";
@@ -123,7 +123,7 @@ $stmt = mysqli_query($conn, $sql_list);
                         </div>
                         <div class="secondary-actions">
                             <?php if ($row_edit['id']): ?>
-                                <a href="<?php echo BASE_URL; ?>admin" class="btn-secondary" style="text-decoration:none; display:inline-block; padding:10px;">🔄 Annulla</a>
+                                <a href="<?php echo BASE_URL; ?>dashboard" class="btn-secondary" style="text-decoration:none; display:inline-block; padding:10px;">🔄 Annulla</a>
                             <?php else: ?>
                                 <button type="reset" class="btn-secondary">🔄 Reset</button>
                             <?php endif; ?>
