@@ -1,5 +1,6 @@
 <?php
-require_once '../app/config/config.php';
+require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../middleware/auth.php';
 
 if (isset($_POST['delete_id'])) {
     $id_delete = (int)$_POST['delete_id'];
@@ -81,7 +82,8 @@ $stmt = mysqli_query($conn, $sql_list);
         <h1>Gestione Ricette</h1>
         <nav class="admin-nav">
             <ul>
-                <li><a href="<?php echo BASE_URL; ?>login">Esci</a></li>
+                <li><a href="<?php echo BASE_URL; ?>">Home</a></li>
+                <li><a href="<?php echo BASE_URL; ?>/logoutController">Log out</a></li>
             </ul>
         </nav>
     </header>

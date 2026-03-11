@@ -1,3 +1,16 @@
+<?php
+require_once __DIR__ . '/../config/config.php';
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (isset($_SESSION['user_id'])) {
+    header('Location: ' . BASE_URL . 'dashboard');
+    exit;
+}
+$error_class = (isset($_GET['error']) && $_GET['error'] == 1) ? 'input-error' : '';
+?>
 <!DOCTYPE html>
 <html lang="it">
 
@@ -16,12 +29,14 @@
 
                 <p class="campo-contenedor">
                     <label for="user_name" class="etiqueta-login">Utente</label>
-                    <input type="text" name="user_name" id="user_name" class="input-login" required autofocus>
+                    <input type="text" name="user_name" id="user_name"
+                        class="input-login <?php echo $error_class; ?>" required autofocus>
                 </p>
 
                 <p class="campo-contenedor">
                     <label for="user_pass" class="etiqueta-login">Password</label>
-                    <input type="password" name="user_pass" id="user_pass" class="input-login" required>
+                    <input type="password" name="user_pass" id="user_pass"
+                        class="input-login <?php echo $error_class; ?>" required>
                 </p>
 
                 <p class="boton-contenedor">

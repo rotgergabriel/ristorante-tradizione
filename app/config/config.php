@@ -38,11 +38,12 @@ if ($is_dev_env) {
     define('DB_NAME', 'pizzeria_db');
 } else {
     define('DB_HOST', 'localhost');
-    define('DB_USER', 'usuario');
+    define('DB_USER', 'user');
     define('DB_PASS', 'password');
-    define('DB_NAME', 'nombre_db');
+    define('DB_NAME', 'data_base');
 }
 
 $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
-require_once __DIR__ . '/../controllers/maintenance.php';
+require_once __DIR__ . '/../helpers/maintenance.php';
+require_once __DIR__ . '/../helpers/debugger.php';

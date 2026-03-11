@@ -896,6 +896,20 @@ h2 {
     text-decoration: underline;
 }
 
+.input-login.input-error {
+    border: 2px solid #d93025 !important;
+    background-color: #fff2f2;
+    outline: none;
+}
+
+.input-error+.etiqueta-login {
+    color: #d93025;
+}
+
+.input-login.input-error:focus {
+    box-shadow: 0 0 5px rgba(217, 48, 37, 0.5);
+}
+
 /* Admin section */
 .admin-body {
     margin: 0;

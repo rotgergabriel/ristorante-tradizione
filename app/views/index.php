@@ -65,7 +65,7 @@ while ($row = mysqli_fetch_assoc($stmt)) {
                 <section class="admin-link">
                     <div class="admin-link__container">
                         <a href="<?php echo BASE_URL; ?>login" class="admin-link__link">
-                            Pannello di Amministrazione
+                            <i class="fas fa-user-shield"></i> Login
                         </a>
                     </div>
                 </section>
