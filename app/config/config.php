@@ -1,5 +1,9 @@
 <?php
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 $domain = $_SERVER['HTTP_HOST'] ?? 'localhost';
 
 $is_dev_env = (
