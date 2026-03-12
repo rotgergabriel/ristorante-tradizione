@@ -29,27 +29,27 @@ while ($row = mysqli_fetch_assoc($stmt)) {
     ?>
 </head>
 
-<body class="page-all-recipes">
-    <div class="layout" id="top">
+<body>
+    <div class="layout page-all-recipes" id="top">
+    <?php
+    include __DIR__ . '/includes/navbar.php';
+    ?>
+
+    <main class="main">
         <?php
-        include __DIR__ . '/includes/navbar.php';
+        include __DIR__ . '/includes/ricette.php';
         ?>
 
-        <main class="main">
-            <?php
-            include __DIR__ . '/includes/ricette.php';
-            ?>
+        <div class="boton-ir-arriba">
+            <a href="#top">
+                <img src="<?php echo BASE_URL; ?>public/assets/img/punta-de-flecha-hacia-arriba.png" alt="Torna su">
+            </a>
+        </div>
+    </main>
 
-            <div class="boton-ir-arriba">
-                <a href="#top">
-                    <img src="<?php echo BASE_URL; ?>public/assets/img/punta-de-flecha-hacia-arriba.png" alt="Torna su">
-                </a>
-            </div>
-        </main>
-
-        <?php
-        include __DIR__ . '/includes/footer.php';
-        ?>
+    <?php
+    include __DIR__ . '/includes/footer.php';
+    ?>
     </div>
     <?php
     include_once __DIR__ . '/includes/footer.php';
