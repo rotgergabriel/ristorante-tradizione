@@ -19,6 +19,8 @@ $all_recipes = [];
 while ($row = mysqli_fetch_assoc($stmt)) {
     $all_recipes[] = $row;
 }
+
+$pageKey = 'page-all-recipes';
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -30,26 +32,24 @@ while ($row = mysqli_fetch_assoc($stmt)) {
 </head>
 
 <body>
-    <div class="layout page-all-recipes" id="top">
-    <?php
-    include __DIR__ . '/includes/navbar.php';
-    ?>
-
-    <main class="main">
+    <div class="layout <?php echo $pageKey ?>" id="top">
         <?php
-        include __DIR__ . '/includes/ricette.php';
+        include __DIR__ . '/includes/navbar.php';
         ?>
+        <main class="main">
+            <?php
+            include __DIR__ . '/includes/ricette.php';
+            ?>
 
-        <div class="boton-ir-arriba">
-            <a href="#top">
-                <img src="<?php echo BASE_URL; ?>public/assets/img/punta-de-flecha-hacia-arriba.png" alt="Torna su">
-            </a>
-        </div>
-    </main>
-
-    <?php
-    include __DIR__ . '/includes/footer.php';
-    ?>
+            <div class="boton-ir-arriba">
+                <a href="#top">
+                    <img src="<?php echo BASE_URL; ?>public/assets/img/punta-de-flecha-hacia-arriba.png" alt="Torna su">
+                </a>
+            </div>
+        </main>
+        <?php
+        include __DIR__ . '/includes/footer.php';
+        ?>
     </div>
     <?php
     include_once __DIR__ . '/includes/footer.php';

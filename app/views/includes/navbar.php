@@ -10,21 +10,21 @@
     </div>
     <div class="header__actions">
         <nav class="header__menu">
-            <a href="#" class="header__menu-toggle">
+            <a href="<?php echo BASE_URL; ?>" class="header__menu-toggle">
                 <p>MENÙ</p>
                 <img src="<?php echo BASE_URL; ?>public/assets/icons/icons8-menú-cuadrado-48.png" alt="menu-icon">
             </a>
         </nav>
         <div class="header__divisor"></div>
         <nav class="header__cart">
-            <a href="#" class="header__prenota-toggle">
+            <a href="<?php echo BASE_URL; ?>" class="header__prenota-toggle">
                 <img src="<?php echo BASE_URL; ?>public/assets/icons/icons8-calendario-24.png" alt="calendario">
                 <p>PRENOTA</p>
             </a>
         </nav>
         <div class="header__divisor disable"></div>
         <div class="header__language">
-            <a href="#">
+            <a href="<?php echo BASE_URL; ?>">
                 <p>IT</p>
                 <img src="<?php echo BASE_URL; ?>public/assets/icons/icons8-ceda-el-paso-24.png" alt="language">
             </a>

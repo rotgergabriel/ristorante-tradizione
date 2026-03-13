@@ -145,15 +145,15 @@ $pageKey = 'dashboard';
                             </div>
                             <div class="form-actions-edit">
                                 <div class="primary-actions">
-                                    <button type="submit" name="submit" class="btn-primary">
+                                    <a type="submit" name="submit" class="btn-primary">
                                         💾 <?php echo $row_edit['id'] ? 'Aggiorna Ricetta' : 'Salva Ricetta'; ?>
-                                    </button>
+                                    </a>
                                 </div>
                                 <div class="secondary-actions">
                                     <?php if ($row_edit['id']): ?>
-                                        <a href="<?php echo BASE_URL; ?>dashboard" class="btn-secondary" style="text-decoration:none; display:inline-block; padding:10px;">🔄 Annulla</a>
+                                        <a href="<?php echo BASE_URL; ?>dashboard" class="btn-secondary">🔄 Annulla</a>
                                     <?php else: ?>
-                                        <button type="reset" class="btn-secondary">🔄 Reset</button>
+                                        <a type="reset" class="btn-secondary">🔄 Reset</a>
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -173,7 +173,7 @@ $pageKey = 'dashboard';
                                             <a href="?edit_id=<?php echo $row['id']; ?>" class="btn-update-small" style="text-decoration:none;">✏️</a>
                                             <form action="" method="POST" style="display:inline;" onsubmit="return confirm('Eliminare questa ricetta?');">
                                                 <input type="hidden" name="delete_id" value="<?php echo $row['id']; ?>">
-                                                <button type="submit" class="btn-delete-small">🗑️</button>
+                                                <a type="submit" class="btn-delete-small">🗑️</a>
                                             </form>
                                         </div>
                                     </div>

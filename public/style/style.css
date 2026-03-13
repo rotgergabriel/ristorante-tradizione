@@ -193,13 +193,6 @@ h2 {
     display: none;
 }
 
-.page-all-recipes .header__menu,
-.page-all-recipes .header__cart,
-.page-all-recipes .header__divisor,
-.page-all-recipes .ricette__footer {
-    display: none;
-}
-
 .page-all-recipes .search-form,
 .page-all-recipes .filter-form {
     display: block;
@@ -362,14 +355,15 @@ h2 {
 }
 
 .admin-link {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
+    position: fixed;
+    bottom: 40px;
+    left: 40px;
 }
 
 .admin-link__link {
     text-decoration: none;
     color: rgb(186, 186, 186);
+    font-size: 25px;
 }
 
 /* Main section*/
