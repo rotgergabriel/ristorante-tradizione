@@ -1,5 +1,4 @@
 const header = document.querySelector('.header');
-
 const images = [
     '/ristorante-tradizione/public/assets/img/cerrar-las-manos-sosteniendo-el-plato-de-comida.webp',
     '/ristorante-tradizione/public/assets/img/chef-profesional-preparando-comida-en-la-cocina.webp',
@@ -8,19 +7,27 @@ const images = [
 
 if (header) {
     let index = 0;
-
     function changeBackground() {
         header.style.backgroundImage = `url('${images[index]}')`;
-
         index = (index + 1) % images.length;
-
         const nextImage = new Image();
         nextImage.src = images[index];
     }
-
     changeBackground();
     setInterval(changeBackground, 5000);
 }
+
+const toggleScrollLock = (isLocked) => {
+    if (isLocked) {
+        const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+        document.body.style.paddingRight = `${scrollBarWidth}px`;
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.paddingRight = '0px';
+        document.body.style.overflow = 'auto';
+    }
+};
+
 const menuOverlay = document.querySelector('.header__menu-overlay');
 const openButton = document.querySelector('.header__menu-toggle');
 const closeButton = document.querySelector('.menu__close');
@@ -31,22 +38,21 @@ if (openButton && menuOverlay) {
     openButton.addEventListener('click', (event) => {
         event.preventDefault();
         menuOverlay.style.display = 'flex';
+        toggleScrollLock(true);
         if (searchInput) searchInput.focus();
     });
 }
 
-if (closeButton && menuOverlay) {
-    closeButton.addEventListener('click', (event) => {
-        event.preventDefault();
+const closeMenu = (event) => {
+    if (event) event.preventDefault();
+    if (menuOverlay) {
         menuOverlay.style.display = 'none';
-    });
-}
+        toggleScrollLock(false);
+    }
+};
 
-linkButtons.forEach(link => {
-    link.addEventListener('click', () => {
-        if (menuOverlay) menuOverlay.style.display = 'none';
-    });
-});
+if (closeButton) closeButton.addEventListener('click', closeMenu);
+linkButtons.forEach(link => link.addEventListener('click', closeMenu));
 
 const openPopupButtons = document.querySelectorAll('.popup-open');
 
@@ -61,22 +67,23 @@ if (openPopupButtons.length > 0) {
             const specificOverlay = article.querySelector('.ricette__overlay');
             if (specificOverlay) {
                 specificOverlay.classList.add('visible');
-                document.body.style.overflow = 'hidden';
+                toggleScrollLock(true);
 
                 const currentCloseButton = specificOverlay.querySelector('.popup__close');
 
+                const closePopup = (e) => {
+                    if (e) e.preventDefault();
+                    specificOverlay.classList.remove('visible');
+                    toggleScrollLock(false);
+                };
+
                 if (currentCloseButton) {
-                    currentCloseButton.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        specificOverlay.classList.remove('visible');
-                        document.body.style.overflow = 'auto';
-                    }, { once: true });
+                    currentCloseButton.addEventListener('click', closePopup, { once: true });
                 }
 
                 specificOverlay.addEventListener('click', (e) => {
                     if (e.target === specificOverlay) {
-                        specificOverlay.classList.remove('visible');
-                        document.body.style.overflow = 'auto';
+                        closePopup();
                     }
                 }, { once: true });
             }
