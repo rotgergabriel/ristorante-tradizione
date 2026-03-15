@@ -1,5 +1,12 @@
 <?php
 require_once __DIR__ . '/../config/config.php';
+
+$head_title = 'Sito in Manutenzione | Ristorante Pizzeria Tradizione';
+$head_title = 'Pagina non trovata | Ristorante Pizzeria Tradizione';
+$error_page_title = '503';
+$error_page_subtitle = 'Servizio non disponibile';
+$error_page_description = 'Stiamo apportando alcune modifiche all\'applicazione.';
+$btn_text = 'Riprova più tardi';
 ?>
 
 <!DOCTYPE html>
@@ -13,14 +20,11 @@ require_once __DIR__ . '/../config/config.php';
 
 <body>
     <div class="layout">
-        <div class="aligner">
-            <div class="item">
-                <h1>503</h1>
-                <h2>Servizio non disponibile</h2>
-                <p>Stiamo apportando alcune modifiche all'applicazione.</p>
-                <a class="btn" href="<?php echo BASE_URL ?>">Riprova di nuovo</a>
-            </div>
-        </div>
+        <!-- 503 Section start-->
+        <?php
+        require_once '../app/views/includes/error_page.php';
+        ?>
+        <!-- 503 Section end -->
     </div>
 </body>
 

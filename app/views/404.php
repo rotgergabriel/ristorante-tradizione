@@ -1,5 +1,11 @@
 <?php
 require_once __DIR__ . '/../config/config.php';
+
+$head_title = 'Pagina non trovata | Ristorante Pizzeria Tradizione';
+$error_page_title = '404';
+$error_page_subtitle = 'Pagina non trovata';
+$error_page_description = 'Spiacenti, la pagina che stai cercando non esiste o è stata spostata.';
+$btn_text = 'Torna alla Home';
 ?>
 
 <!DOCTYPE html>
@@ -13,15 +19,11 @@ require_once __DIR__ . '/../config/config.php';
 
 <body>
     <div class="layout">
-        <div class="aligner">
-            <div class="item">
-                <h1>404</h1>
-                <img src="https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif" />
-                <h2>Pagina non trovata</h2>
-                <p>Spiacenti, la pagina che stai cercando non esiste o è stata spostata.</p>
-                <a class="btn" href="<?php echo BASE_URL ?>">Torna alla Home</a>
-            </div>
-        </div>
+        <!-- 404 Section start-->
+        <?php
+        require_once '../app/views/includes/error_page.php';
+        ?>
+        <!-- 404 Section end -->
     </div>
 </body>
 
