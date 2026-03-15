@@ -86,7 +86,7 @@ $pageKey = 'dashboard';
             <nav class="admin-nav">
                 <ul>
                     <li><a href="<?php echo BASE_URL; ?>">Home</a></li>
-                    <li><a href="<?php echo BASE_URL; ?>/logoutController">Log out</a></li>
+                    <li><a href="<?php echo BASE_URL; ?>logoutController">Log out</a></li>
                 </ul>
             </nav>
         </header>
