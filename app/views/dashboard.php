@@ -67,16 +67,16 @@ $total_paginas = ceil($total_registros / $registros_por_pagina);
 $sql_list = "SELECT id, title FROM recipes $filter ORDER BY title ASC LIMIT $registros_por_pagina OFFSET $offset";
 $stmt = mysqli_query($conn, $sql_list);
 
+$head_title = 'Dashboard di Gestione | Ristorante Pizzeria Tradizione';
 $pageKey = 'dashboard';
 ?>
 <!DOCTYPE html>
 <html lang="it">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pannello di Amministrazione</title>
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>public/style/style.css">
+    <?php
+    include_once __DIR__ . '/includes/head.php';
+    ?>
 </head>
 
 <body>
@@ -145,15 +145,15 @@ $pageKey = 'dashboard';
                             </div>
                             <div class="form-actions-edit">
                                 <div class="primary-actions">
-                                    <a type="submit" name="submit" class="btn-primary">
+                                    <button type="submit" name="submit" class="btn-primary">
                                         💾 <?php echo $row_edit['id'] ? 'Aggiorna Ricetta' : 'Salva Ricetta'; ?>
-                                    </a>
+                                    </button>
                                 </div>
                                 <div class="secondary-actions">
                                     <?php if ($row_edit['id']): ?>
                                         <a href="<?php echo BASE_URL; ?>dashboard" class="btn-secondary">🔄 Annulla</a>
                                     <?php else: ?>
-                                        <a type="reset" class="btn-secondary">🔄 Reset</a>
+                                        <button type="reset" class="btn-secondary">🔄 Reset</button>
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -173,7 +173,7 @@ $pageKey = 'dashboard';
                                             <a href="?edit_id=<?php echo $row['id']; ?>" class="btn-update-small" style="text-decoration:none;">✏️</a>
                                             <form action="" method="POST" style="display:inline;" onsubmit="return confirm('Eliminare questa ricetta?');">
                                                 <input type="hidden" name="delete_id" value="<?php echo $row['id']; ?>">
-                                                <a type="submit" class="btn-delete-small">🗑️</a>
+                                                <button type="submit" class="btn-delete-small">🗑️</button>
                                             </form>
                                         </div>
                                     </div>
@@ -208,6 +208,7 @@ $pageKey = 'dashboard';
             <p> Copyright &copy; 2026 - Rotger Gabriel - Pannello di Amministrazione</p>
         </footer>
     </div>
+    <script type="module" src="<?php echo BASE_URL; ?>public/js/interfaceManager.js"></script>
 </body>
 
 </html>

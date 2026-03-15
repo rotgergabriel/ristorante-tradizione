@@ -779,7 +779,12 @@ h2 {
     text-align: center;
 }
 
-.page-all-recipes .footer__nav {
+.page-all-recipes .footer__nav,
+.page-all-recipes .ricette__footer>a {
+    display: none;
+}
+
+.carta .footer__nav {
     display: none;
 }
 
@@ -1413,6 +1418,7 @@ input:checked+.slider:before {
     transition: background-color 0.3s;
     font-size: 14px;
     display: inline-block;
+    height: 100%;
 }
 
 .btn-primary {
@@ -1510,7 +1516,7 @@ input:checked+.slider:before {
     padding: 20px;
 }
 
-.item img {
+.item > img {
     width: 100%;
     max-width: 600px;
     height: auto;
@@ -1521,7 +1527,6 @@ input:checked+.slider:before {
     font-weight: 700;
     font-size: 100px;
     color: #007bff;
-    margin-bottom: 15px;
 }
 
 .item h2 {

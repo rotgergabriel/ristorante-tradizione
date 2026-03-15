@@ -14,6 +14,8 @@ $all_recipes = [];
 while ($row = mysqli_fetch_assoc($stmt)) {
     $all_recipes[] = $row;
 }
+
+$head_title = 'Ristorante Pizzeria Tradizione';
 ?>
 
 <!DOCTYPE html>
@@ -32,44 +34,19 @@ while ($row = mysqli_fetch_assoc($stmt)) {
             <div class="bg bg1"></div>
             <div class="bg bg2"></div>
             <div class="bg bg3"></div>
-            <!-- Header Nav Section -->
+
+            <!-- Header Nav Section start-->
             <?php
             require_once '../app/views/includes/navbar.php';
             ?>
-            <!-- Overlay container hidden menu -->
-            <section class="header__menu-overlay">
-                <a class="menu__close" href="#"><img src="<?php echo BASE_URL; ?>public/assets/icons/icons8-eliminar-24.png" alt=""></a>
-                <!-- Main navigation panel inside the overlay -->
-                <nav class="menu-overlay">
-                    <div class="logo__overlay">
-                        <a href="#">
-                            <img fetchpriority="high"
-                                src="<?php echo BASE_URL ?>public/assets/img/ristorante_tradizione.png"
-                                class="attachment-full size-full wp-image-86" alt=""
-                                srcset="<?php echo BASE_URL ?>public/assets/img/ristorante_tradizione.png"
-                                sizes="(max-width: 1001px) 100vw, 1001px">
-                        </a>
-                    </div>
-                    <!-- Navigation links list -->
-                    <ul class="menu-overlay__list">
-                        <li class="menu-overlay__item"><a href="#home">HOME</a></li>
-                        <li class="menu-overlay__item"><a href="#chi_siamo">CHI SIAMO</a></li>
-                        <li class="menu-overlay__item"><a href="#le_nostre_ricette">LE NOSTRE RICETTE</a></li>
-                        <li class="menu-overlay__item"><a href="#punti_di_forza">I NOSTRI PUNTI DI FORZA</a></li>
-                        <li class="menu-overlay__item"><a href="#nostri_vini">I NOSTRI VINI</a></li>
-                        <li class="menu-overlay__item"><a href="#contact">CONTATTI</a></li>
-                    </ul>
-                </nav>
-                <!-- header__divider -->
-                <!-- <div class="header__divider"></div> -->
-                <section class="admin-link">
-                    <div class="admin-link__container">
-                        <a href="<?php echo BASE_URL; ?>login" class="admin-link__link">
-                            <i class="fas fa-user-shield"></i> Login
-                        </a>
-                    </div>
-                </section>
-            </section>
+            <!-- Header Nav Section end -->
+
+            <!-- Header Overlay start-->
+            <?php
+            require_once '../app/views/includes/header.php';
+            ?>
+            <!-- Header Overlay end -->
+
             <section class="header__title">
                 <div>
                     <h1>Non vado in pizzeria <br> Vado alla Tradizione </h1>
@@ -128,10 +105,12 @@ while ($row = mysqli_fetch_assoc($stmt)) {
                     </div>
                 <?php } ?>
             </section>
-            <!-- Ricette section -->
+            <!-- Ricette Section start -->
             <?php
             require_once '../app/views/includes/ricette.php';
             ?>
+            <!-- Ricette Section end -->
+
             <!-- Punti di forza section -->
             <section id="punti_di_forza" class="text-block">
                 <h2>I NOSTRI PUNTI DI FORZA</h2>
@@ -148,19 +127,15 @@ while ($row = mysqli_fetch_assoc($stmt)) {
             <section id="nostri_vini" class="vini">
                 <div class="vini__content">
                     <div class="vini__item">
-                        <h2>I NOSTRI VINI</h2>
-                        <p>La nostra esperienza gastronomica si completa con una raffinata selezione di vini locali e
-                            internazionali.
-                            Ogni etichetta è stata scelta con cura per accompagnare al meglio i nostri piatti e
-                            valorizzarne i sapori.
-                            Dalle bollicine eleganti ai rossi strutturati, passando per bianchi freschi e profumati,
-                            la nostra cantina racconta un viaggio tra le migliori regioni vinicole.
-                            Il nostro sommelier sarà lieto di consigliarti l’abbinamento perfetto per ogni occasione.
+                        <h2>IL MENÙ</h2>
+                        <p>La nostra proposta culinaria celebra l’incontro tra tradizione e creatività. Ogni pizza è frutto di una lunga lievitazione naturale e di una selezione rigorosa di materie prime d’eccellenza, dai pomodori maturi del Sud alle farine macinate a pietra.
+                            Dalle icone classiche della tradizione alle creazioni più audaci, il nostro viaggio nel gusto si conclude con una raffinata varietà di dolci fatti in casa, pensati per regalarti un finale indimenticabile.
+                            Lasciati conquistare dalla freschezza dei nostri ingredienti e dalla passione che mettiamo in ogni singola infornata.
                         </p>
-                        <a href="#">SCOPRI LA NOSTRA CARTA DEI VINI</a>
+                        <a href="<?php echo BASE_URL ?>carta">SCOPRI IL MENÙ DELLE PIZZE</a>
                     </div>
                     <div class="vini__img">
-                        <img src="<?php echo BASE_URL; ?>public/assets/img/vino-con-comida-sobre-fondo-de-madera.webp" alt="Wine images">
+                        <img src="<?php echo BASE_URL; ?>public/assets/img/margherita.webp" alt="Pizza images">
                     </div>
                 </div>
                 <div class="vini__content">
@@ -174,7 +149,7 @@ while ($row = mysqli_fetch_assoc($stmt)) {
                             la nostra cantina racconta un viaggio tra le migliori regioni vinicole.
                             Il nostro sommelier sarà lieto di consigliarti l’abbinamento perfetto per ogni occasione.
                         </p>
-                        <a href="#">SCOPRI LA NOSTRA CARTA DEI VINI</a>
+                        <a href="<?php echo BASE_URL ?>carta#vini">SCOPRI LA NOSTRA CARTA DEI VINI</a>
                     </section>
                     <section class="vini__img">
                         <img src="<?php echo BASE_URL; ?>public/assets/img/vista-frontal-copas-de-vino-uvas-frescas-nueces-queso-amarillo-sobre-tablero-de-madera-botella-volcada-sobre-fondo-oscuro.webp"
@@ -187,12 +162,13 @@ while ($row = mysqli_fetch_assoc($stmt)) {
                 <a href="#top"><img src="<?php echo BASE_URL; ?>public/assets/img/punta-de-flecha-hacia-arriba.png" alt=""></a>
             </div>
         </main>
-        <!-- Footer -->
+        <!-- Footer Section start-->
         <?php
         require_once '../app/views/includes/footer.php';
         ?>
+        <!-- Footer Section end -->
     </div>
-    <script type="module" src="<?php echo BASE_URL; ?>public/js/uiTransitionsController.js"></script>
+    <script type="module" src="<?php echo BASE_URL; ?>public/js/interfaceManager.js"></script>
 </body>
 
 </html>

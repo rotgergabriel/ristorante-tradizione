@@ -13,6 +13,10 @@
                 <li>Via del Gusto 27, 00184 Roma, Italia</li>
                 <li>Tel: +39 06 3344 XX88</li>
                 <li><a href="mailto:info@pizzeria.it">info@pizzeria.it</a></li>
+                <li>
+                    <a href="#"><img src="<?php echo BASE_URL; ?>assets/social_media/icons8-facebook-nuevo-48.png" alt=""></a>
+                    <a href="#"><img src="<?php echo BASE_URL; ?>assets/social_media/icons8-instagram-48.png" alt=""></a>
+                </li>
             </ul>
         </address>
     </section>
@@ -23,11 +27,7 @@
             <li><a href="#chi_siamo">CHI SIAMO</a></li>
             <li><a href="#le_nostre_ricette">LE NOSTRE RICETTE</a></li>
             <li><a href="#punti_di_forza">I NOSTRI PUNTI DI FORZA</a></li>
-            <li><a href="#nostri_vini">I NOSTRI VINI</a></li>
-            <li>
-                <a href="#"><img src="<?php echo BASE_URL; ?>assets/img/social_media/icons8-facebook-nuevo-48.png" alt=""></a>
-                <a href="#"><img src="<?php echo BASE_URL; ?>assets/img/social_media/icons8-instagram-48.png" alt=""></a>
-            </li>
+            <li><a href="#nostri_vini">IL NOSTRO MENÙ</a></li>
         </ul>
     </nav>
     <section class="footer__legal">

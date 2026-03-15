@@ -12,4 +12,4 @@
     <!-- favicon -->
     <link rel="shortcut icon" href="<?php echo BASE_URL; ?>public/assets/icons/favicon-16x16.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <title>Ristorante Pizzeria Tradizione</title>
+    <title><?php echo $head_title ?></title>

@@ -19,7 +19,7 @@ $all_recipes = [];
 while ($row = mysqli_fetch_assoc($stmt)) {
     $all_recipes[] = $row;
 }
-
+$head_title = 'Le Nostre Ricette | Ristorante Pizzeria Tradizione';
 $pageKey = 'page-all-recipes';
 ?>
 <!DOCTYPE html>
@@ -33,28 +33,30 @@ $pageKey = 'page-all-recipes';
 
 <body>
     <div class="layout <?php echo $pageKey ?>" id="top">
+        <!-- Header Nav Section start-->
         <?php
-        include __DIR__ . '/includes/navbar.php';
+        require_once '../app/views/includes/navbar.php';
         ?>
+        <!-- Header Nav Section end -->
         <main class="main">
+            <!-- Ricette Section start -->
             <?php
             include __DIR__ . '/includes/ricette.php';
             ?>
-
+            <!-- Ricette Section end -->
             <div class="boton-ir-arriba">
                 <a href="#top">
                     <img src="<?php echo BASE_URL; ?>public/assets/img/punta-de-flecha-hacia-arriba.png" alt="Torna su">
                 </a>
             </div>
         </main>
+        <!-- Footer Section start -->
         <?php
         include __DIR__ . '/includes/footer.php';
         ?>
+        <!-- Footer Section end -->
     </div>
-    <?php
-    include_once __DIR__ . '/includes/footer.php';
-    ?>
-    <script type="module" src="<?php echo BASE_URL; ?>public/js/uiTransitionsController.js"></script>
+    <script type="module" src="<?php echo BASE_URL; ?>public/js/interfaceManager.js"></script>
 </body>
 
 </html>

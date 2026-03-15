@@ -10,14 +10,16 @@ if (isset($_SESSION['user_id'])) {
     exit;
 }
 $error_class = (isset($_GET['error']) && $_GET['error'] == 1) ? 'input-error' : '';
+
+$head_title = 'Area Riservata | Ristorante Pizzeria Tradizione';
 ?>
 <!DOCTYPE html>
 <html lang="it">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Accesso al Sistema</title>
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>public/style/style.css">
+    <?php
+    include_once __DIR__ . '/includes/head.php';
+    ?>>
 </head>
 
 <body class="cuerpo-login">
