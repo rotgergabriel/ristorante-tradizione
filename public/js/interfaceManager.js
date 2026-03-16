@@ -24,14 +24,14 @@ const toggleScrollLock = (isLocked) => {
         document.body.style.overflow = 'hidden';
     } else {
         document.body.style.paddingRight = '0px';
-        document.body.style.overflow = 'auto';
+        document.body.style.overflow = '';
     }
 };
 
 const menuOverlay = document.querySelector('.header__menu-overlay');
 const openButton = document.querySelector('.header__menu-toggle');
 const closeButton = document.querySelector('.menu__close');
-const linkButtons = document.querySelectorAll('.menu-overlay__item');
+const linkButtons = document.querySelectorAll('.menu-overlay__item a');
 const searchInput = document.querySelector('.menu-overlay__form input[type="search"]');
 
 if (openButton && menuOverlay) {
@@ -43,16 +43,25 @@ if (openButton && menuOverlay) {
     });
 }
 
-const closeMenu = (event) => {
-    if (event) event.preventDefault();
+const closeMenu = () => {
     if (menuOverlay) {
         menuOverlay.style.display = 'none';
         toggleScrollLock(false);
     }
 };
 
-if (closeButton) closeButton.addEventListener('click', closeMenu);
-linkButtons.forEach(link => link.addEventListener('click', closeMenu));
+if (closeButton) {
+    closeButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        closeMenu();
+    });
+}
+
+linkButtons.forEach(link => {
+    link.addEventListener('click', () => {
+        closeMenu();
+    });
+});
 
 const openPopupButtons = document.querySelectorAll('.popup-open');
 
@@ -71,14 +80,16 @@ if (openPopupButtons.length > 0) {
 
                 const currentCloseButton = specificOverlay.querySelector('.popup__close');
 
-                const closePopup = (e) => {
-                    if (e) e.preventDefault();
+                const closePopup = () => {
                     specificOverlay.classList.remove('visible');
                     toggleScrollLock(false);
                 };
 
                 if (currentCloseButton) {
-                    currentCloseButton.addEventListener('click', closePopup, { once: true });
+                    currentCloseButton.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        closePopup();
+                    }, { once: true });
                 }
 
                 specificOverlay.addEventListener('click', (e) => {

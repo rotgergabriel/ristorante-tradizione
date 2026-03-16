@@ -13,12 +13,12 @@
         </div>
         <!-- Navigation links list -->
         <ul class="menu-overlay__list">
-            <li class="menu-overlay__item"><a href="#home">HOME</a></li>
-            <li class="menu-overlay__item"><a href="#chi_siamo">CHI SIAMO</a></li>
-            <li class="menu-overlay__item"><a href="#le_nostre_ricette">LE NOSTRE RICETTE</a></li>
-            <li class="menu-overlay__item"><a href="#punti_di_forza">I NOSTRI PUNTI DI FORZA</a></li>
-            <li class="menu-overlay__item"><a href="#nostri_vini">IL NOSTRO MENÙ</a></li>
-            <li class="menu-overlay__item"><a href="#contact">CONTATTI</a></li>
+            <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>">HOME</a></li>
+            <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>#chi_siamo">CHI SIAMO</a></li>
+            <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>#le_nostre_ricette">LE NOSTRE RICETTE</a></li>
+            <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>#punti_di_forza">I NOSTRI PUNTI DI FORZA</a></li>
+            <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>#nostri_vini">IL NOSTRO MENÙ</a></li>
+            <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>#contact">CONTATTI</a></li>
         </ul>
     </nav>
     <!-- header__divider -->
