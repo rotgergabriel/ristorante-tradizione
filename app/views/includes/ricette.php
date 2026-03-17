@@ -1,3 +1,5 @@
+<div class="page-banner">
+</div>
 <section class="forms-container">
     <form action="<?php echo BASE_URL; ?>all_recipes" method="GET" class="search-form">
         <div class="form-group search-group">
