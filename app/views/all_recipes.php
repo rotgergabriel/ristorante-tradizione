@@ -39,6 +39,8 @@ $pageKey = 'page-all-recipes';
         ?>
         <!-- Header Nav Section end -->
         <main class="main">
+            <div class="page-banner">
+            </div>
             <!-- Ricette Section start -->
             <?php
             include __DIR__ . '/includes/ricette.php';
