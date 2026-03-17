@@ -27,7 +27,7 @@
             <li><a href="#chi_siamo">CHI SIAMO</a></li>
             <li><a href="#le_nostre_ricette">LE NOSTRE RICETTE</a></li>
             <li><a href="#punti_di_forza">I NOSTRI PUNTI DI FORZA</a></li>
-            <li><a href="#nostri_vini">IL NOSTRO MENÙ</a></li>
+            <li><a href="#il_menu">IL NOSTRO MENÙ</a></li>
         </ul>
     </nav>
     <section class="footer__legal">

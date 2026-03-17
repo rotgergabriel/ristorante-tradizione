@@ -124,7 +124,7 @@ $head_title = 'Ristorante Pizzeria Tradizione';
                 </p>
             </section>
             <!-- Vini section -->
-            <section id="nostri_vini" class="vini">
+            <section id="il_menu" class="vini">
                 <div class="vini__content">
                     <div class="vini__item">
                         <h2>IL MENÙ</h2>

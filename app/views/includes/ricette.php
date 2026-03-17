@@ -85,6 +85,6 @@
         <?php } ?>
     </section>
     <footer class="ricette__footer">
-        <a href="<?php echo BASE_URL; ?>all_recipes" target="_blank">VEDI TUTTE LE RICETTE</a>
+        <a href="<?php echo BASE_URL; ?>all_recipes">VEDI TUTTE LE RICETTE</a>
     </footer>
 </section>
