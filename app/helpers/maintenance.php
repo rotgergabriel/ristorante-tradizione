@@ -8,10 +8,14 @@ $row_status = mysqli_fetch_assoc($res_status);
 $service_unavailable = (isset($row_status['setting_value']) && $row_status['setting_value'] == 1);
 
 $current_uri = $_SERVER['REQUEST_URI'];
-$is_admin_area = (strpos($current_uri, 'login') !== false ||
+
+$is_admin_area = (
+    strpos($current_uri, 'login') !== false ||
     strpos($current_uri, 'dashboard') !== false ||
-    strpos($current_uri, 'logoutController') !== false) ||
-    strpos($current_uri, 'public') !== false;
+    strpos($current_uri, 'logoutController') !== false ||
+    strpos($current_uri, 'public') !== false ||
+    strpos($current_uri, 'api') !== false
+);
 
 if ($service_unavailable && !$is_admin_area) {
     http_response_code(503);

@@ -12,10 +12,14 @@ if (isset($_SERVER['REQUEST_URI'])) {
         $parts = explode('/', $uri);
         $view = $parts[0];
         $id = $parts[1] ?? null;
+
+        if ($view === 'api' && $id === 'update-maintenance') {
+            require_once ROOT_PATH . 'app/controllers/update_maintenance.php';
+            exit; 
+        }
     }
 }
 
-// Rutas posibles
 $viewPath = ROOT_PATH . 'app/views/' . $view . '.php';
 $controllerPath = ROOT_PATH . 'app/controllers/' . $view . '.php';
 

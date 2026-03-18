@@ -67,6 +67,13 @@ $total_paginas = ceil($total_registros / $registros_por_pagina);
 $sql_list = "SELECT id, title FROM recipes $filter ORDER BY title ASC LIMIT $registros_por_pagina OFFSET $offset";
 $stmt = mysqli_query($conn, $sql_list);
 
+$sql_maint = "SELECT setting_value FROM site_settings WHERE setting_key = 'maintenance_mode' LIMIT 1";
+$res_maint = mysqli_query($conn, $sql_maint);
+$is_maintenance_on = false;
+if ($row_maint = mysqli_fetch_assoc($res_maint)) {
+    $is_maintenance_on = ($row_maint['setting_value'] == 1);
+}
+
 $head_title = 'Dashboard di Gestione | Ristorante Pizzeria Tradizione';
 $pageKey = 'dashboard';
 ?>
@@ -103,9 +110,8 @@ $pageKey = 'dashboard';
                         </div>
                     </div>
                     <div class="maintenance-status">
-                        <span class="status-label">Modo</span>
                         <label class="switch">
-                            <input type="checkbox" id="maintenance-toggle">
+                            <input type="checkbox" id="maintenance-toggle" <?php echo $is_maintenance_on ? 'checked' : ''; ?>>
                             <span class="slider round"></span>
                         </label>
                         <span id="status-text" class="status-text">
@@ -301,6 +307,10 @@ $pageKey = 'dashboard';
             </div>
         </main>
     </div>
+    <script>
+        const MAINTENANCE_API_URL = '<?php echo BASE_URL; ?>app/controllers/update_maintenance.php';
+    </script>
+    <script type="module" src="<?php echo BASE_URL; ?>public/js/interfaceManager.js"></script>
     <script type="module" src="<?php echo BASE_URL; ?>public/js/interfaceManager.js"></script>
 </body>
 

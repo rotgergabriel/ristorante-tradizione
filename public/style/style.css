@@ -1586,7 +1586,7 @@ details[open] .icon {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Menu Section */
+/* Dashboard Button ON/OFF Section */
 .menu-page__container {
     display: flex;
     width: 100%;
@@ -1663,6 +1663,20 @@ details[open] .icon {
     border-bottom: 2px dotted #d1d1d1;
     margin: 0 10px;
     height: 1px;
+}
+
+input:checked+.slider {
+    background-color: #e74c3c;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #e74c3c;
+}
+
+.status-text {
+    font-weight: bold;
+    margin-left: 10px;
+    transition: color 0.3s ease;
 }
 
 /* Media query */

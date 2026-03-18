@@ -101,3 +101,44 @@ if (openPopupButtons.length > 0) {
         });
     });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.getElementById('maintenance-toggle');
+    const statusText = document.getElementById('status-text');
+
+    if (!toggle || !statusText) return;
+
+    const updateLabel = (isOn) => {
+        statusText.textContent = isOn ? "ON" : "OFF";
+        statusText.style.color = isOn ? "#e74c3c" : "#2ecc71";
+    };
+
+    updateLabel(toggle.checked);
+
+    toggle.addEventListener('change', () => {
+        const isChecked = toggle.checked ? 1 : 0;
+
+        fetch('/ristorante-tradizione/api/update-maintenance', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `status=${isChecked}`
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Error en la ruta del servidor');
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    updateLabel(toggle.checked);
+                } else {
+                    throw new Error(data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Fetch Error:', error);
+                alert("Errore: " + error.message);
+                toggle.checked = !toggle.checked;
+                updateLabel(toggle.checked);
+            });
+    });
+});
