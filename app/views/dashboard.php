@@ -74,6 +74,17 @@ if ($row_maint = mysqli_fetch_assoc($res_maint)) {
     $is_maintenance_on = ($row_maint['setting_value'] == 1);
 }
 
+$menuOpen = false;
+$recipeOpen = false;
+
+if (isset($_GET['menu_query']) || isset($_POST['submit_menu'])) {
+    $menuOpen = true;
+}
+
+if (isset($_GET['edit_id']) || isset($_GET['filter_query']) || isset($_GET['p']) || isset($_POST['submit'])) {
+    $recipeOpen = true;
+}
+
 $head_title = 'Dashboard di Gestione | Ristorante Pizzeria Tradizione';
 $pageKey = 'dashboard';
 ?>
@@ -120,12 +131,11 @@ $pageKey = 'dashboard';
                 </div>
             </div>
             <div class="native-accordion">
-                <details class="accordion-item">
+                <details class="accordion-item" <?php echo $menuOpen ? 'open' : ''; ?>>
                     <summary class="accordion-header">
                         <span class="header-title">Menú (Pizze, Bevande, Vini)</span>
                         <span class="icon">▾</span>
                     </summary>
-
                     <div class="accordion-body">
                         <div class="dashboard-container">
                             <section class="content-section form-column">
@@ -199,13 +209,7 @@ $pageKey = 'dashboard';
                 </details>
             </div>
             <div class="native-accordion">
-                <?php
-                $isOpen = false;
-                if (isset($_GET['edit_id']) || isset($_GET['filter_query']) || isset($_GET['p']) || isset($_POST['submit_menu'])) {
-                    $isOpen = true;
-                }
-                ?>
-                <details class="accordion-item" <?php echo $isOpen ? 'open' : ''; ?>>
+                <details class="accordion-item" <?php echo $recipeOpen ? 'open' : ''; ?>>
                     <summary class="accordion-header">
                         <span class="header-title">Ricette</span>
                         <span class="icon">▾</span>
@@ -307,10 +311,6 @@ $pageKey = 'dashboard';
             </div>
         </main>
     </div>
-    <script>
-        const MAINTENANCE_API_URL = '<?php echo BASE_URL; ?>app/controllers/update_maintenance.php';
-    </script>
-    <script type="module" src="<?php echo BASE_URL; ?>public/js/interfaceManager.js"></script>
     <script type="module" src="<?php echo BASE_URL; ?>public/js/interfaceManager.js"></script>
 </body>
 
