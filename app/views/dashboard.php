@@ -252,11 +252,11 @@ $pageKey = 'dashboard';
                                             </button>
                                         </div>
                                         <div class="secondary-actions">
-                                            <?php if ($row_edit['id']): ?>
+                                            <?php if ($row_edit['id']) { ?>
                                                 <a href="<?php echo BASE_URL; ?>dashboard" class="btn-secondary">🔄 Annulla</a>
-                                            <?php else: ?>
+                                            <?php } else { ?>
                                                 <button type="reset" class="btn-secondary">🔄 Reset</button>
-                                            <?php endif; ?>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                 </form>
@@ -268,8 +268,8 @@ $pageKey = 'dashboard';
                                     <input type="text" name="filter_query" placeholder="🔍 Filtra per nome..." value="<?php echo isset($_GET['filter_query']) ? htmlspecialchars($_GET['filter_query']) : ''; ?>">
                                 </form>
                                 <div class="recipe-list">
-                                    <?php if (mysqli_num_rows($stmt) > 0): ?>
-                                        <?php while ($row = mysqli_fetch_assoc($stmt)): ?>
+                                    <?php if (mysqli_num_rows($stmt) > 0) { ?>
+                                        <?php while ($row = mysqli_fetch_assoc($stmt)) { ?>
                                             <div class="recipe-item">
                                                 <span class="recipe-item-title"><?php echo htmlspecialchars($row['title']); ?></span>
                                                 <div class="recipe-item-actions">
@@ -280,29 +280,17 @@ $pageKey = 'dashboard';
                                                     </form>
                                                 </div>
                                             </div>
-                                        <?php endwhile; ?>
-                                    <?php else: ?>
+                                        <?php } ?>
+                                    <?php } else { ?>
                                         <p>Nessuna ricetta trovata.</p>
-                                    <?php endif; ?>
-                                    <div class="pagination">
-                                        <?php
-                                        $rango = 2;
-                                        if ($pagina_actual > 1) {
-                                            echo "<a href='?p=1$query_param'>&laquo; Inizio</a>";
-                                        }
-                                        for ($i = 1; $i <= $total_paginas; $i++) {
-                                            if ($i == 1 || $i == $total_paginas || ($i >= $pagina_actual - $rango && $i <= $pagina_actual + $rango)) {
-                                                $class = ($pagina_actual == $i) ? 'active' : '';
-                                                echo "<a href='?p=$i$query_param' class='$class'>$i</a>";
-                                            } elseif ($i == $pagina_actual - $rango - 1 || $i == $pagina_actual + $rango + 1) {
-                                                echo "<span style='padding: 8px;'>...</span>";
-                                            }
-                                        }
-                                        if ($pagina_actual < $total_paginas) {
-                                            echo "<a href='?p=$total_paginas$query_param'>Fine &raquo;</a>";
-                                        }
-                                        ?>
-                                    </div>
+                                    <?php } ?>
+
+                                    <!-- Pagination section start -->
+                                    <?php
+                                    include __DIR__ . '/includes/pagination.php';
+                                    ?>
+                                    <!-- Pagination section end -->
+
                                 </div>
                             </section>
                         </div>
