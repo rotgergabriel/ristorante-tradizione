@@ -19,7 +19,7 @@ $head_title = 'Area Riservata | Ristorante Pizzeria Tradizione';
 <head>
     <?php
     include_once __DIR__ . '/includes/head.php';
-    ?>>
+    ?>
 </head>
 
 <body class="cuerpo-login">
