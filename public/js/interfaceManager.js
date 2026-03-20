@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!toggle || !statusText) return;
 
     const updateLabel = (isOn) => {
-        statusText.textContent = isOn ? "ON" : "OFF";
+        statusText.textContent = isOn ? "OFFLINE" : "ONLINE";
         statusText.style.color = isOn ? "#e74c3c" : "#2ecc71";
     };
 
