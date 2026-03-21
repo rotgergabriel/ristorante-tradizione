@@ -28,17 +28,28 @@ Il progetto è organizzato seguendo un'architettura **MVC (Model-View-Controller
 ```text
 RISTORANTE-TRADIZIONE
 ├── app/
-│   ├── config/          # File di configurazione (DB, costanti, parametri globali)
-│   ├── controllers/     # Logica di controllo: elabora le richieste e gestisce i dati
-│   ├── models/          # Logica dei dati: classi e funzioni per l'interazione con il database
-│   └── views/           # Interfaccia utente: file PHP/HTML e componenti del layout (header/footer)
-├── public/              # Punto di accesso pubblico (Root del server)
-│   ├── assets/          # Risorse statiche: immagini delle ricette e icone
-│   ├── js/              # Script per il comportamento lato client
-│   ├── style/           # Fogli di stile CSS per il design responsivo
-│   └── index.php        # Front Controller: gestisce tutte le richieste in entrata
-├── .htaccess            # Regole di configurazione del server e URL puliti
-└── README.md            # Documentazione del progetto
+│   ├── config/          # Configurazione del database e costanti globali
+│   ├── controllers/     # Logica di controllo (Gestione richieste HTTP)
+│   ├── helpers/         # Funzioni ausiliarie e utility riutilizzabili
+│   ├── middleware/      # Filtri di accesso (es. autenticazione sessioni)
+│   ├── models/          # Logica dei dati: interazione con la base di dati pizzeria_db
+│   └── views/           # Interfaccia utente (Template Engine)
+│       ├── includes/    # Componenti parziali (header, footer, navbar)
+│       ├── 404.php      # Pagina di errore risorsa non trovata
+│       ├── 503.php      # Pagina di modalità manutenzione (site_settings)
+│       ├── all_recipes.php # Catalogo completo delle ricette
+│       ├── our-menu.php    # Visualizzazione del menu (menu_items)
+│       ├── dashboard.php # Pannello di amministrazione per gestione contenuti
+│       ├── index.php    # Home page del sito
+│       └── login.php    # Form di accesso per amministratori/collaboratori
+├── public/              # Unica cartella accessibile dal web (Root del server)
+│   ├── assets/          # Risorse statiche: immagini ricette (es. margherita.webp)
+│   ├── js/              # Logica lato client (JavaScript)
+│   ├── style/           # Fogli di stile CSS e framework (Bootstrap)
+│   └── index.php        # Front Controller: punto di ingresso unico all'app
+├── .htaccess            # Regole di Apache per URL puliti (Mod_Rewrite)
+├── LICENSE              # Licenza del software (MIT)
+└── README.md            # Documentazione tecnica del progetto
 ```
 💡 Organizzazione dei Contenuti
 Logica Applicativa (app/): Questa cartella contiene il nucleo del sistema. È protetta dall'accesso diretto via browser per garantire la sicurezza del codice e delle credenziali del database.
@@ -62,27 +73,72 @@ Per questo progetto è stata seguita una metodologia di design preventiva. È po
 
 ## 🗄️ Struttura del Database
 
-Il progetto utilizza **MySQL** (MariaDB) con le seguenti tabelle principali per la gestione dei contenuti e degli utenti:
+Il progetto utilizza **MySQL** con le seguenti tabelle principali per la gestione dei contenuti e degli utenti:
 
 ### 📊 Modello dei Dati
 
 | Tabella | Descrizione |
 | :--- | :--- |
+| **`menu_categories`** | Gestisce le categorie del menu come pizze, bevande e vini, includendo l'ordine di visualizzazione. |
+| **`menu_items`** | Contiene i prodotti specifici offerti nel menu, i relativi prezzi, la disponibilità e il collegamento alle ricette. |
+| **`site_settings`** | Conserva le configurazioni globali del sito, come l'attivazione della modalità manutenzione. |
 | **`recipes`** | Memorizza le informazioni dettagliate delle pizze, i processi di preparazione e le valutazioni. |
 | **`users`** | Gestisce le credenziali di accesso e i ruoli del sistema. |
 
-### 📝 Dizionario della Tabella `recipes`
-
+### 📝 Dizionario della Tabella menu_categories
 | Campo | Tipo | Descrizione |
 | :--- | :--- | :--- |
-| **id** | `INT` | Chiave primaria autoincrementale. |
-| **title** | `VARCHAR(150)` | Nome della ricetta. |
-| **subtitle** | `VARCHAR(150)` | Breve descrizione secondaria o slogan. |
-| **description** | `TEXT` | Introduzione o riassunto del piatto. |
-| **complete_process**| `TEXT` | Istruzioni passo dopo passo per l'elaborazione. |
-| **preparation_time**| `VARCHAR(50)` | Tempo stimato di preparazione. |
-| **rating** | `DECIMAL(2,1)` | Valutazione della ricetta (da 0.0 a 5.0). |
-| **image_url** | `VARCHAR(255)` | Nome o percorso del file immagine. |
+| **`id`** | INT | Chiave primaria autoincrementale. |
+| **`slug`** | VARCHAR(50) | Identificatore testuale per URL amichevoli. |
+| **`name`** | VARCHAR(100) | Nome della categoria (es. PIZZE, BEVANDE). |
+| **`display_order`** | INT | Ordine di visualizzazione nel menu. |
+
+### 📝 Dizionario della Tabella menu_items
+| Campo | Tipo | Descrizione |
+| :--- | :--- | :--- |
+| **`id`** | INT | Chiave primaria autoincrementale. |
+| **`category_id`** | INT | FK. Riferimento alla categoria di appartenenza. |
+| **`name`** | VARCHAR(150) | Nome del piatto o prodotto. |
+| **`description`** | TEXT | Ingredienti o dettagli dell'articolo. |
+| **`price`** | DECIMAL(10,2) | Prezzo di vendita. |
+| **`is_available`** | TINYINT | Disponibilità (1 = disponibile, 0 = esaurito). |
+| **`recipe_id`** | INT | FK. Riferimento opzionale a una ricetta dettagliata. |
+
+### 📝 Dizionario della Tabella recipes
+| Campo | Tipo | Descrizione |
+| :--- | :--- | :--- |
+| **`id`** | INT | Chiave primaria autoincrementale. |
+| **`title`** | VARCHAR(150) | Nome della ricetta. |
+| **`subtitle`** | VARCHAR(150) | Breve descrizione secondaria o slogan. |
+| **`description`** | TEXT | Introduzione o riassunto del piatto. |
+| **`complete_process`**| TEXT | Istruzioni passo dopo passo per l'elaborazione. |
+| **`preparation_time`**| VARCHAR(50) | Tempo stimato di preparazione. |
+| **`rating`** | DECIMAL(2,1) | Valutazione della ricetta (da 0.0 a 5.0). |
+| **`image_url`** | VARCHAR(255) | Nome o percorso del file immagine. |
+| **`created_at`** | TIMESTAMP | Data di creazione del record. |
+
+### 📝 Dizionario della Tabella site_settings
+| Campo | Tipo | Descrizione |
+| :--- | :--- | :--- |
+| **`id`** | INT | Chiave primaria autoincrementale. |
+| **`setting_key`** | VARCHAR(50) | Chiave univoca dell'impostazione (es. maintenance_mode). |
+| **`setting_value`** | TINYINT | Valore dell'impostazione (booleano 0/1). |
+
+### 📝 Dizionario della Tabella users
+| Campo | Tipo | Descrizione |
+| :--- | :--- | :--- |
+| **`id`** | INT | Chiave primaria autoincrementale. |
+| **`username`** | VARCHAR(50) | Nome utente univoco per il login. |
+| **`password`** | VARCHAR(255) | Password cifrata. |
+| **`role`** | VARCHAR(20) | Ruolo dell'utente (es. Amministratore, Collaboratore). |
+
+---
+
+## 🔗 Relazioni tra le Tabelle (Logica di Business)
+| Relazione | Cardinalità | Descrizione |
+| :--- | :--- | :--- |
+| **`Categoría > Articoli`** | 1:N | Una categoria contiene più prodotti. Se la categoria viene eliminata, i prodotti vengono rimossi (CASCADE). |
+| **`Ricetta > Articoli`** | 1:1 / 1:N | Un articolo può avere una ricetta. Se la ricetta viene eliminata, l'articolo rimane nel menu (SET NULL). |
 
 ---
 
@@ -94,6 +150,14 @@ Per replicare l'ambiente dei dati localmente, segui questi passaggi:
 Esegui il seguente script SQL nel tuo gestore (phpMyAdmin o MySQL Workbench):
 
 ```sql
+CREATE TABLE `menu_categories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `slug` varchar(50) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `display_order` int(11) DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 CREATE TABLE `recipes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(150) NOT NULL,
@@ -105,6 +169,27 @@ CREATE TABLE `recipes` (
   `image_url` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `menu_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `description` text DEFAULT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `is_available` tinyint(1) DEFAULT 1,
+  `recipe_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_category` FOREIGN KEY (`category_id`) REFERENCES `menu_categories` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_recipe` FOREIGN KEY (`recipe_id`) REFERENCES `recipes` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `site_settings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `setting_key` varchar(50) NOT NULL,
+  `setting_value` tinyint(1) DEFAULT 1,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `setting_key` (`setting_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `users` (
@@ -121,16 +206,34 @@ CREATE TABLE `users` (
 ### 2. Caricamento dei Dati Iniziali (Seeders)
 Inserisci questi dati di esempio per testare le funzionalità:
 ```sql
--- Utente di esempio
-INSERT INTO `users` (`username`, `password`, `role`) VALUES
-('admin', 'admin123', 'administrador');
+-- Categorie di esempio
+INSERT INTO `menu_categories` (`slug`, `name`, `display_order`) VALUES
+('PIZZE', 'LE NOSTRE PIZZE', 1),
+('BEVANDE', 'LE NOSTRE BEVANDE', 2),
+('VINI', 'I NOSTRI VINI', 3);
 
 -- Ricette di esempio
 INSERT INTO `recipes` (`title`, `subtitle`, `description`, `complete_process`, `preparation_time`, `rating`, `image_url`) VALUES
 ('Margherita Classica', 'La regina di Napoli', 'Il simbolo universale della pizza italiana.', '1. Impasto... 2. Pomodoro... 3. Cottura...', '20 min', 5.0, 'margherita.webp'),
 ('Diavola Piccante', 'Un tocco di fuoco', 'Per chi ama i sapori forti.', '1. Base... 2. Salame... 3. Cottura...', '25 min', 4.8, NULL),
 ('Quattro Formaggi Bianca', 'Sinfonia di latticini', 'Una prelibatezza senza pomodoro.', '1. Selezione... 2. Base... 3. Cottura...', '25 min', 4.7, NULL),
-('Pizza Napoletana STG', 'Specialità Tradizionale Garantita', 'Il disciplinare ufficiale della pizza napoletana.', '1. Impasto... 2. Stesura... 3. Condimento...', '20 min', 4.8, NULL);
+('Pistacchio e Mortadella', 'Delizia Gourmet', 'Una delle pizze bianche più amate.', '1. Base... 2. Cottura... 3. Ingredienti a freddo...', '20 min', 5.0, 'pistacchio.webp');
+
+-- Articoli del menu di esempio
+INSERT INTO `menu_items` (`category_id`, `name`, `description`, `price`, `is_available`, `recipe_id`) VALUES
+(1, 'Pizza Margherita', 'Pomodoro, mozzarella, basilico fresco.', 7.50, 1, 1),
+(1, 'Pizza Diavola', 'Pomodoro, mozzarella, salame piccante.', 9.50, 1, 2),
+(2, 'Acqua Minerale (500ml)', NULL, 1.50, 1, NULL),
+(3, 'Chianti Classico (Rosso)', 'Toscana, Italia', 24.00, 1, NULL);
+
+-- Impostazioni del sito
+INSERT INTO `site_settings` (`setting_key`, `setting_value`) VALUES
+('maintenance_mode', 0);
+
+-- Utenti di sistema
+INSERT INTO `users` (`username`, `password`, `role`) VALUES
+('Gabriel', 'Admin%1987', 'Amministratore'),
+('Franco', 'Pizza%2026', 'Collaboratore');
 ```
 ---
 
