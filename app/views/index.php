@@ -1,23 +1,15 @@
 <?php
 require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../models/indexModel.php';
 
-$sql_lista = "SELECT title FROM recipes ORDER BY title ASC";
-$res_lista = mysqli_query($conn, $sql_lista);
+$res_lista      = getHomeRecipeTitles($conn);
+$stmt_carrousel = getCarouselRecipes($conn, 3);
+$res_random     = getRandomHomeRecipes($conn, 3);
 
-$sql = "SELECT * FROM recipes ORDER BY RAND() LIMIT 3";
-$stmt = mysqli_query($conn, $sql);
-
-$sql_carrousel = "SELECT title, description, subtitle, image_url, rating FROM recipes ORDER BY rating DESC LIMIT 3";
-$stmt_carrousel = mysqli_query($conn, $sql_carrousel);
-
-$all_recipes = [];
-while ($row = mysqli_fetch_assoc($stmt)) {
-    $all_recipes[] = $row;
-}
+$all_recipes = formatResultSetToArray($res_random);
 
 $head_title = 'Ristorante Pizzeria Tradizione';
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
