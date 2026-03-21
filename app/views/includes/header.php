@@ -17,7 +17,7 @@
             <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>#chi_siamo">CHI SIAMO</a></li>
             <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>#le_nostre_ricette">LE NOSTRE RICETTE</a></li>
             <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>#punti_di_forza">I NOSTRI PUNTI DI FORZA</a></li>
-            <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>carta">IL NOSTRO MENÙ</a></li>
+            <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>our-menu">IL NOSTRO MENÙ</a></li>
             <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>#contact">CONTATTI</a></li>
         </ul>
     </nav>

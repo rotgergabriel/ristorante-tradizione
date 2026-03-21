@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/config.php';
 
-// Obtener todas las categorías de la base de datos
 $sql_categories = "SELECT * FROM menu_categories ORDER BY display_order ASC, name ASC";
 $res_categories = mysqli_query($conn, $sql_categories);
 
@@ -42,7 +41,6 @@ $pageKey = 'carta';
                         while ($cat = mysqli_fetch_assoc($res_categories)) {
                             $category_id = $cat['id'];
 
-                            // Obtener los items de esta categoría específica
                             $sql_items = "SELECT * FROM menu_items WHERE category_id = $category_id ORDER BY name ASC";
                             $res_items = mysqli_query($conn, $sql_items);
 
@@ -70,13 +68,13 @@ $pageKey = 'carta';
                                             </article>
                                             <div class="menu-item__divider"></div>
                                         <?php
-                                        } // Fin while items 
+                                        }
                                         ?>
                                     </div>
                                 </section>
                         <?php
-                            } // Fin check items
-                        } // Fin while categorías
+                            }
+                        }
                     } else {
                         ?>
                         <p class="no-results">Il menù è in fase de aggiornamento. Torna a trovarci presto!</p>
