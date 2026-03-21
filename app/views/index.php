@@ -132,7 +132,7 @@ $head_title = 'Ristorante Pizzeria Tradizione';
                             Dalle icone classiche della tradizione alle creazioni più audaci, il nostro viaggio nel gusto si conclude con una raffinata varietà di dolci fatti in casa, pensati per regalarti un finale indimenticabile.
                             Lasciati conquistare dalla freschezza dei nostri ingredienti e dalla passione che mettiamo in ogni singola infornata.
                         </p>
-                        <a href="<?php echo BASE_URL ?>carta">SCOPRI IL MENÙ DELLE PIZZE</a>
+                        <a href="<?php echo BASE_URL ?>our-menu">SCOPRI IL MENÙ DELLE PIZZE</a>
                     </div>
                     <div class="vini__img">
                         <img src="<?php echo BASE_URL; ?>public/assets/img/margherita.webp" alt="Pizza images">
@@ -149,7 +149,7 @@ $head_title = 'Ristorante Pizzeria Tradizione';
                             la nostra cantina racconta un viaggio tra le migliori regioni vinicole.
                             Il nostro sommelier sarà lieto di consigliarti l’abbinamento perfetto per ogni occasione.
                         </p>
-                        <a href="<?php echo BASE_URL ?>carta#vini">SCOPRI LA NOSTRA CARTA DEI VINI</a>
+                        <a href="<?php echo BASE_URL ?>our-menu#VINI">SCOPRI LA NOSTRA CARTA DEI VINI</a>
                     </section>
                     <section class="vini__img">
                         <img src="<?php echo BASE_URL; ?>public/assets/img/vista-frontal-copas-de-vino-uvas-frescas-nueces-queso-amarillo-sobre-tablero-de-madera-botella-volcada-sobre-fondo-oscuro.webp"
