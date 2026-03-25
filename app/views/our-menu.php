@@ -53,7 +53,7 @@ $pageKey = 'carta';
                                                     <?php } ?>
                                                 </div>
                                                 <span class="menu-item__price">
-                                                    €<?php echo number_format($item['price'], 2, ',', '.'); ?>
+                                                    <span class="currency">€</span><?php echo number_format($item['price'], 2, ',', '.'); ?>
                                                 </span>
                                             </article>
                                             <div class="menu-item__divider"></div>

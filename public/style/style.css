@@ -1246,8 +1246,7 @@ input:checked+.slider:before {
     padding: 0 20px 20px 20px;
 }
 
-.dashboard {
-}
+.dashboard {}
 
 .dashboard-container {
     display: flex;
@@ -1641,9 +1640,12 @@ details[open] .icon {
 .menu-header__title {
     font-size: 50px;
     color: #095D45;
+    margin-bottom: -15px;
 }
 
 .menu-category__title {
+    font-size: 25px;
+    font-weight: 600;
     color: #FF5B3F;
 }
 
@@ -1656,6 +1658,17 @@ details[open] .icon {
 
 .menu-item__info {
     min-width: 200px;
+}
+
+.menu-item__price {
+    font-size: 20px;
+    font-weight: 600;
+    color: #095D45;
+}
+
+.currency {
+color: #FF5B3F;
+margin-right: 2px;
 }
 
 .menu-item__divider {
