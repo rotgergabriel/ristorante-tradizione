@@ -5,12 +5,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = $_POST['user_name'];
     $pass = $_POST['user_pass'];
 
-    $conn = mysqli_connect("localhost", "root", "", "pizzeria_db");
-
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-
     $user = mysqli_real_escape_string($conn, $user);
     $safe_pass = mysqli_real_escape_string($conn, $pass);
 
