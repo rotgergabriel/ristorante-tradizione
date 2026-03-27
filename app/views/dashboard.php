@@ -152,13 +152,15 @@ $pageKey = 'dashboard';
                             <strong class="user-name"><?php echo htmlspecialchars($_SESSION['username']); ?></strong>
                         </div>
                     </div>
-                    <div class="maintenance-status">
-                        <label class="switch">
-                            <input type="checkbox" id="maintenance-toggle" <?php echo $is_maintenance_on ? 'checked' : ''; ?>>
-                            <span class="slider round"></span>
-                        </label>
-                        <span id="status-text" class="status-text"></span>
-                    </div>
+                    <?php if (isset($_SESSION['role']) && $_SESSION['role'] === ROLE_ADMIN) { ?>
+                        <div class="maintenance-status">
+                            <label class="switch">
+                                <input type="checkbox" id="maintenance-toggle" <?php echo $is_maintenance_on ? 'checked' : ''; ?>>
+                                <span class="slider round"></span>
+                            </label>
+                            <span id="status-text" class="status-text"></span>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
 

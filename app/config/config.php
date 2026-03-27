@@ -53,5 +53,7 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
+define('ROLE_ADMIN', 'Amministratore');
+
 require_once __DIR__ . '/../helpers/maintenance.php';
 require_once __DIR__ . '/../helpers/debugger.php';
