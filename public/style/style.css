@@ -1638,9 +1638,10 @@ details[open] .icon {
 }
 
 .menu-header__title {
-    font-size: 50px;
+    font-size: 35px;
     color: #095D45;
     margin-bottom: -15px;
+    padding: 10px 0 0 15px;
 }
 
 .menu-category__title {
