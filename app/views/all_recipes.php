@@ -61,11 +61,11 @@ $pageKey = 'page-all-recipes';
             ?>
             <!-- Pagination section end -->
 
-            <div class="boton-ir-arriba">
-                <a href="#top">
-                    <img src="<?php echo BASE_URL; ?>public/assets/img/punta-de-flecha-hacia-arriba.png" alt="Torna su">
-                </a>
-            </div>
+            <!-- Up Button start -->
+            <?php
+            require_once '../app/views/includes/up_button.php';
+            ?>
+            <!-- Up Button end -->
         </main>
         <?php
         include __DIR__ . '/includes/footer.php';

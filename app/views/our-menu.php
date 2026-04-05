@@ -16,7 +16,7 @@ $pageKey = 'carta';
 </head>
 
 <body>
-    <div class="layout <?php echo $pageKey ?>">
+    <div class="layout <?php echo $pageKey ?>" id="top">
         <?php require_once '../app/views/includes/navbar.php'; ?>
 
         <main class="main">
@@ -67,6 +67,11 @@ $pageKey = 'carta';
                     <?php } ?>
                 </section>
             </div>
+            <!-- Up Button start -->
+            <?php
+            require_once '../app/views/includes/up_button.php';
+            ?>
+            <!-- Up Button end -->
         </main>
     </div>
     <script type="module" src="<?php echo BASE_URL; ?>public/js/interfaceManager.js"></script>

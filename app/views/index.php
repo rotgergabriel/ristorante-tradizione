@@ -149,10 +149,11 @@ $head_title = 'Ristorante Pizzeria Tradizione';
                     </section>
                 </div>
             </section>
-            <!-- Up Button -->
-            <div class="boton-ir-arriba">
-                <a href="#top"><img src="<?php echo BASE_URL; ?>public/assets/img/punta-de-flecha-hacia-arriba.png" alt=""></a>
-            </div>
+            <!-- Up Button start -->
+            <?php
+            require_once '../app/views/includes/up_button.php';
+            ?>
+            <!-- Up Button end -->
         </main>
         <!-- Footer Section start-->
         <?php
