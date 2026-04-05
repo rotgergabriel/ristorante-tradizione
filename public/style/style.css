@@ -703,8 +703,8 @@ h2 {
 
 .boton-ir-arriba {
     position: fixed;
-    bottom: 50px;
-    right: 50px;
+    bottom: 20px;
+    right: 20px;
     width: 40px;
     height: 40px;
     background-color: #007bff;
@@ -730,11 +730,30 @@ h2 {
 }
 
 .boton-ir-arriba:hover {
-    background-color: #0056b3;
+    background-color: #0f74e0;
     transform: scale(1.05);
 }
 
 .boton-ir-arriba:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.whatsapp-button {
+    position: fixed;
+    bottom: 20px;
+    right: 70px;
+    width: 40px;
+    height: 40px;
+    z-index: 25;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.whatsapp-button:hover {
+    transform: scale(1.05);
+}
+
+.whatsapp-button:active {
     transform: scale(0.95);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -1668,8 +1687,8 @@ details[open] .icon {
 }
 
 .currency {
-color: #FF5B3F;
-margin-right: 2px;
+    color: #FF5B3F;
+    margin-right: 2px;
 }
 
 .menu-item__divider {

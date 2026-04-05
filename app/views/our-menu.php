@@ -72,6 +72,12 @@ $pageKey = 'carta';
             require_once '../app/views/includes/up_button.php';
             ?>
             <!-- Up Button end -->
+
+            <!-- Up Whatsapp start -->
+            <?php
+            require_once '../app/views/includes/whatsapp_button.php';
+            ?>
+            <!-- Up Whatsapp end -->
         </main>
     </div>
     <script type="module" src="<?php echo BASE_URL; ?>public/js/interfaceManager.js"></script>

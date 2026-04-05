@@ -54,6 +54,7 @@ if (!$conn) {
 }
 
 define('ROLE_ADMIN', 'Amministratore');
+define('WHATSAPP_NUMBER', '3290818919');
 
 require_once __DIR__ . '/../helpers/maintenance.php';
 require_once __DIR__ . '/../helpers/debugger.php';

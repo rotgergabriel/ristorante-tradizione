@@ -154,6 +154,12 @@ $head_title = 'Ristorante Pizzeria Tradizione';
             require_once '../app/views/includes/up_button.php';
             ?>
             <!-- Up Button end -->
+            
+            <!-- Up Whatsapp start -->
+            <?php
+            require_once '../app/views/includes/whatsapp_button.php';
+            ?>
+            <!-- Up Whatsapp end -->
         </main>
         <!-- Footer Section start-->
         <?php

@@ -66,6 +66,12 @@ $pageKey = 'page-all-recipes';
             require_once '../app/views/includes/up_button.php';
             ?>
             <!-- Up Button end -->
+
+            <!-- Up Whatsapp start -->
+            <?php
+            require_once '../app/views/includes/whatsapp_button.php';
+            ?>
+            <!-- Up Whatsapp end -->
         </main>
         <?php
         include __DIR__ . '/includes/footer.php';
