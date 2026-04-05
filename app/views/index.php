@@ -7,8 +7,26 @@ $stmt_carrousel = getCarouselRecipes($conn, 3);
 $res_random     = getRandomHomeRecipes($conn, 3);
 
 $all_recipes = formatResultSetToArray($res_random);
-
 $head_title = 'Ristorante Pizzeria Tradizione';
+
+// Popup section
+$statusPopup = 'Show';
+$titlePopup = 'OFFERTA SPECIALE';
+$subtitlePopup = 'Martedì & Mercoledì';
+$daysPopup = '2x1';
+$monthPopup = 'BIBITA';
+$cityPopup = 'GRATIS';
+
+$schedulePopup = [
+    'Martedì - In sala e asporto',
+    'Mercoledì - In sala e asporto'
+];
+
+$locationPopup = [
+    'icon' => 'icons8-pizza-100.png',
+    'venue' => 'PROMO VALIDA',
+    'address' => 'Acquistando 2 pizze classiche'
+];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,6 +50,12 @@ $head_title = 'Ristorante Pizzeria Tradizione';
             require_once '../app/views/includes/navbar.php';
             ?>
             <!-- Header Nav Section end -->
+
+            <!-- Popup start-->
+            <?php
+            require_once '../app/views/includes/popup.php';
+            ?>
+            <!-- Popup end -->
 
             <!-- Header Overlay start-->
             <?php
@@ -154,7 +178,7 @@ $head_title = 'Ristorante Pizzeria Tradizione';
             require_once '../app/views/includes/up_button.php';
             ?>
             <!-- Up Button end -->
-            
+
             <!-- Up Whatsapp start -->
             <?php
             require_once '../app/views/includes/whatsapp_button.php';
@@ -168,6 +192,7 @@ $head_title = 'Ristorante Pizzeria Tradizione';
         <!-- Footer Section end -->
     </div>
     <script type="module" src="<?php echo BASE_URL; ?>public/js/interfaceManager.js"></script>
+    <script src="<?php echo BASE_URL ?>public/js/popupClose.js"></script>
 </body>
 
 </html>
