@@ -5,9 +5,9 @@
         <div class="logo__overlay">
             <a href="#">
                 <img fetchpriority="high"
-                    src="<?php echo BASE_URL ?>public/assets/img/ristorante_tradizione.png"
+                    src="<?php echo BASE_URL ?>public/assets/img/ristorante-il-cairo.png"
                     class="attachment-full size-full wp-image-86" alt=""
-                    srcset="<?php echo BASE_URL ?>public/assets/img/ristorante_tradizione.png"
+                    srcset="<?php echo BASE_URL ?>public/assets/img/ristorante-il-cairo.png"
                     sizes="(max-width: 1001px) 100vw, 1001px">
             </a>
         </div>
@@ -16,8 +16,8 @@
             <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>">HOME</a></li>
             <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>#chi_siamo">CHI SIAMO</a></li>
             <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>#le_nostre_ricette">LE NOSTRE RICETTE</a></li>
-            <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>#punti_di_forza">I NOSTRI PUNTI DI FORZA</a></li>
-            <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>our-menu">IL NOSTRO MENÙ</a></li>
+            <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>#servizio_a_domicilio">SERVIZIO A DOMICILIO</a></li>
+            <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>our-menu">LA CARTA</a></li>
             <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>#contact">CONTATTI</a></li>
         </ul>
     </nav>

@@ -185,7 +185,7 @@ h2 {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    align-items: center;
+    align-items: space-between;
     padding-bottom: 10px;
     z-index: 20;
     background: rgba(0, 0, 0, 0.25);
@@ -313,9 +313,8 @@ h2 {
 }
 
 .logo__overlay>a>img {
-    width: 250px;
-    height: 80px;
-    margin: 70px 0;
+    width: 200px;
+    margin: 50px;
 }
 
 .menu-overlay {
@@ -366,7 +365,7 @@ h2 {
 .admin-link__link {
     text-decoration: none;
     color: rgb(186, 186, 186);
-    font-size: 25px;
+    font-size: 20px;
 }
 
 /* Main section*/
@@ -382,12 +381,85 @@ h2 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
     line-height: 2rem;
     max-width: 1008px;
-    min-height: 500px;
-    gap: 15px;
     margin: 0 auto;
     padding: 0 20px;
+    gap: 15px;
+}
+
+.text-block h2 {
+    text-align: center;
+    width: 100%;
+}
+
+.delivery-info {
+    padding: 60px 20px;
+}
+
+.delivery-intro {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.delivery-rates {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 25px;
+    border-radius: 10px;
+    margin: 0 auto;
+    max-width: 500px;
+    border: 1px dashed #ccc;
+}
+
+.delivery-rates p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.moto-pop {
+    position: absolute;
+    bottom: -15px;
+    right: -20px;
+    width: 100px;
+    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
+    pointer-events: none;
+}
+
+.highlight {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #e67e22;
+    font-size: 0.9rem;
+}
+
+.price {
+    font-size: 1.4rem;
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.btn-delivery {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #25d366;
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+    margin-top: 20px;
+}
+
+.btn-delivery:hover {
+    transform: scale(1.05);
+    color: white;
+}
+
+.delivery-cta {
+    margin-top: 25px;
+    font-style: italic;
 }
 
 /* Carrousel section*/
@@ -407,7 +479,7 @@ h2 {
     align-items: center;
     justify-content: flex-end;
     flex: 1;
-    height: 700px;
+    height: 500px;
     cursor: pointer;
 }
 
@@ -941,7 +1013,7 @@ h2 {
     padding: 160px 20px;
     gap: 20px;
     margin-top: 100px;
-    background-image: url('../assets/img/cubiertos-de-oro-con-textil-en-placa-sobre-fondo-oscuro-vista-superior.webp');
+    background:linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('../assets/img/footer_img.webp');
     background-size: cover;
     background-position: center;
     color: white;
@@ -955,7 +1027,7 @@ h2 {
 }
 
 .footer__title {
-    color: #7CB108;
+    color: #E6C76B;
 }
 
 .footer a {
@@ -1003,9 +1075,20 @@ h2 {
     padding: 20px;
 }
 
-.caja-login {
+.contenedor-principal {
+    padding: 0;
+}
+
+.form-actions-edit,
+.primary-actions,
+.secondary-actions {
+    flex-direction: column;
     width: 100%;
-    max-width: 380px;
+    align-items: stretch;
+}
+
+.caja-login {
+    max-width: 400px;
     margin: 0 auto;
     background-color: #ffffff;
     padding: 40px 30px;
@@ -1439,14 +1522,18 @@ input:checked+.slider:before {
     padding: 0 20px 20px 20px;
 }
 
-.dashboard {}
-
 .dashboard-container {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     gap: 25px;
     margin: 0 auto;
     align-items: flex-start;
+}
+
+.form-column,
+.list-column {
+    width: 100%;
 }
 
 .user-profile-card {
@@ -1935,14 +2022,14 @@ input:focus+.slider {
     }
 
     .carrousel {
-        gap: 10px;
+        gap: 15px;
     }
 
     .carrousel__item {
-        min-width: 256px;
-        padding: 0 20px;
+        min-width: 300px;
+        padding: 0 10px;
         overflow-y: hidden;
-        height: 570px;
+        height: 500px;
     }
 
     .text-block {
@@ -1972,27 +2059,6 @@ input:focus+.slider {
 
     .footer {
         flex-direction: column;
-    }
-}
-
-@media (max-width: 450px) {
-    .caja-login {
-        max-width: 100%;
-        width: 95%;
-        padding: 30px 15px;
-        box-shadow: none;
-    }
-
-    .contenedor-principal {
-        padding: 0;
-    }
-
-    .form-actions-edit,
-    .primary-actions,
-    .secondary-actions {
-        flex-direction: column;
-        width: 100%;
-        align-items: stretch;
     }
 }
 
@@ -2040,10 +2106,6 @@ input:focus+.slider {
         padding: 0;
     }
 
-    .text-block {
-        text-align: center;
-    }
-
     .vini__content:nth-of-type(1) .vini__item {
         order: 1;
     }
@@ -2078,17 +2140,6 @@ input:focus+.slider {
     }
 }
 
-@media (max-width: 1024px) {
-    .dashboard-container {
-        flex-direction: column;
-    }
-
-    .form-column,
-    .list-column {
-        width: 100%;
-    }
-}
-
 @media (min-width: 1024px) {
     .header__title {
         font-size: 55px;
@@ -2101,5 +2152,14 @@ input:focus+.slider {
     .menu-page__content {
         width: 70%;
         margin-left: 30%;
+    }
+
+    .carrousel__item {
+        max-width: 400px;
+        min-width: 400px;
+    }
+
+    .dashboard-container {
+        flex-direction: row;
     }
 }

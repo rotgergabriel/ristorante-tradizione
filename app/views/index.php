@@ -7,26 +7,30 @@ $stmt_carrousel = getCarouselRecipes($conn, 3);
 $res_random     = getRandomHomeRecipes($conn, 3);
 
 $all_recipes = formatResultSetToArray($res_random);
-$head_title = 'Ristorante Pizzeria Tradizione';
+$head_title = 'Ristorante Pizzeria Il Cairo';
 
 // Popup section
-$statusPopup = 'Show';
-$titlePopup = 'OFFERTA SPECIALE';
-$subtitlePopup = 'Martedì & Mercoledì';
-$daysPopup = '2x1';
-$monthPopup = 'BIBITA';
-$cityPopup = 'GRATIS';
+$res_popup = mysqli_query($conn, "SELECT * FROM popup_settings WHERE id = 1 LIMIT 1");
+$popup_data = mysqli_fetch_assoc($res_popup);
 
-$schedulePopup = [
-    'Martedì - In sala e asporto',
-    'Mercoledì - In sala e asporto'
-];
-
-$locationPopup = [
-    'icon' => 'icons8-pizza-100.png',
-    'venue' => 'PROMO VALIDA',
-    'address' => 'Acquistando 2 pizze classiche'
-];
+if ($popup_data) {
+    $statusPopup   = ($popup_data['status'] == 1);
+    $titlePopup    = $popup_data['title'];
+    $subtitlePopup = $popup_data['subtitle'];
+    $daysPopup     = $popup_data['days'];
+    $monthPopup    = $popup_data['month'];
+    $cityPopup     = $popup_data['city'];
+    $schedulePopup = !empty($popup_data['schedule']) ? explode(',', $popup_data['schedule']) : [];
+    $locationPopup = [
+        'icon'    => 'icons8-pizza-100.png',
+        'venue'   => $popup_data['venue'] ?? '',
+        'address' => $popup_data['address'] ?? ''
+    ];
+} else {
+    $statusPopup = false;
+    $locationPopup = ['icon' => '', 'venue' => '', 'address' => ''];
+    $schedulePopup = [];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,23 +69,22 @@ $locationPopup = [
 
             <section class="header__title">
                 <div>
-                    <h1>Non vado in pizzeria <br> Vado alla Tradizione </h1>
+                    <h1>Il Cairo<br>Pizza, Kebab & Tacos</h1>
                 </div>
             </section>
         </header>
         <!-- Main section -->
         <main class="main">
             <!-- About section -->
-            <section id="chi_siamo" class="text-block">
+            <section id="chi_siamo" class="text-block delivery-info">
                 <h2>CHI SIAMO</h2>
                 <p>
-                    Siamo un ristorante a conduzione familiare, nati dalla passione per la buona cucina, il vino e
-                    l’ospitalità.
-                    Fin dall’inizio abbiamo voluto creare uno spazio dove ogni visita diventi un’esperienza autentica,
-                    piena di sapori, calore e convivialità.
-                    Utilizziamo ingredienti freschi e di stagione, provenienti dal territorio,
-                    rispettando le tradizioni culinarie ma aggiungendo sempre un tocco creativo che ci contraddistingue.
-                    Ogni piatto racconta una storia, e ogni ospite fa parte della nostra.
+                    Benvenuti da <strong>Il Cairo</strong>, dove la passione per la cucina incontra l'accoglienza di una gestione familiare nel cuore di Vigone.
+                    Siamo nati con l'obiettivo di offrire un punto d'incontro unico, dove la tradizione della pizza italiana si intreccia con i sapori ricchi e speziati del miglior Kebab e dei Tacos più gustosi.
+                </p>
+                <p>
+                    Ogni giorno selezioniamo ingredienti freschi per garantire qualità in ogni preparazione, dal nostro impasto a lunga lievitazione alle carni sapientemente condite.
+                    Per noi, non si tratta solo di servire cibo, ma di creare un'esperienza autentica fatta di calore e convivialità. Che sia una cena veloce o un momento da condividere, ogni ospite diventa parte della nostra storia.
                 </p>
             </section>
             <!-- Carrousel section -->
@@ -127,48 +130,66 @@ $locationPopup = [
             ?>
             <!-- Ricette Section end -->
 
-            <!-- Punti di forza section -->
-            <section id="punti_di_forza" class="text-block">
-                <h2>I NOSTRI PUNTI DI FORZA</h2>
-                <p>
-                    Nel nostro ristorante celebriamo la cucina autentica e il rispetto per gli ingredienti locali.
-                    Collaboriamo con produttori della regione per offrire piatti freschi, genuini e ricchi di sapore.
-                    La nostra passione per il vino e la buona tavola si riflette in ogni dettaglio,
-                    dalla scelta degli ingredienti alla presentazione finale di ogni portata.
-                    Crediamo in una cucina artigianale, nell’equilibrio tra tradizione e innovazione,
-                    e in un’esperienza gastronomica capace di coinvolgere tutti i sensi.
+            <!-- Servizio a domicilio section -->
+            <section id="servizio_a_domicilio" class="text-block delivery-info">
+                <h2>SERVIZIO A DOMICILIO</h2>
+                <p class="delivery-intro">
+                    Goditi il gusto di <strong>Il Cairo</strong> direttamente a casa tua!
+                    Cucina di alta qualità con consegna rapida a <strong>Vigone</strong> e dintorni.
                 </p>
+
+                <div class="delivery-rates">
+                    <p>
+                        <span class="highlight">Consegna a Vigone:</span> <br>
+                        <strong>GRATUITA</strong> con spesa min. <span class="price">15€</span>
+                    </p>
+                    <p>
+                        <span class="highlight">Fuori Vigone:</span> <br>
+                        Consegna <span class="price">2,50€</span>
+                    </p>
+                    <img src="<?php BASE_URL ?>public/assets/img/consegna.png" alt="moto delivery" class="moto-pop">
+                </div>
+
+                <p class="delivery-cta">
+                    Ordina in modo semplice e veloce su <strong>WhatsApp</strong> o chiamaci. <br>
+                    Siamo pronti a preparare la tua pizza, il tuo kebab o i tuoi tacos preferiti!
+                </p>
+
+                <div class="delivery-actions">
+                    <a href="https://wa.me/39XXXXXXXXXX" target="_blank" class="btn-delivery whatsapp">ORDINA SU WHATSAPP</a>
+                </div>
             </section>
+
             <!-- Vini section -->
             <section id="il_menu" class="vini">
                 <div class="vini__content">
                     <div class="vini__item">
-                        <h2>IL MENÙ</h2>
+                        <h2>La Carta</h2>
                         <p>La nostra proposta culinaria celebra l’incontro tra tradizione e creatività. Ogni pizza è frutto di una lunga lievitazione naturale e di una selezione rigorosa di materie prime d’eccellenza, dai pomodori maturi del Sud alle farine macinate a pietra.
                             Dalle icone classiche della tradizione alle creazioni più audaci, il nostro viaggio nel gusto si conclude con una raffinata varietà di dolci fatti in casa, pensati per regalarti un finale indimenticabile.
                             Lasciati conquistare dalla freschezza dei nostri ingredienti e dalla passione che mettiamo in ogni singola infornata.
                         </p>
-                        <a href="<?php echo BASE_URL ?>our-menu">SCOPRI IL MENÙ DELLE PIZZE</a>
+                        <a href="<?php echo BASE_URL ?>our-menu">SCOPRI IL NOSTRO LISTINO</a>
                     </div>
                     <div class="vini__img">
-                        <img src="<?php echo BASE_URL; ?>public/assets/img/margherita.webp" alt="Pizza images">
+                        <img src="<?php echo BASE_URL; ?>public/assets/img/la_carta.webp" alt="Pizza images">
                     </div>
                 </div>
                 <div class="vini__content">
                     <section class="vini__item">
-                        <h2>I NOSTRI VINI</h2>
-                        <p>La nostra esperienza gastronomica si completa con una raffinata selezione di vini locali e
-                            internazionali.
-                            Ogni etichetta è stata scelta con cura per accompagnare al meglio i nostri piatti e
-                            valorizzarne i sapori.
-                            Dalle bollicine eleganti ai rossi strutturati, passando per bianchi freschi e profumati,
-                            la nostra cantina racconta un viaggio tra le migliori regioni vinicole.
-                            Il nostro sommelier sarà lieto di consigliarti l’abbinamento perfetto per ogni occasione.
+                        <h2>Focacce / Calzoni</h2>
+                        <p>
+                            La nostra offerta si arricchisce con le nostre fragranti focacce e i calzoni ripieni,
+                            preparati con lo stesso impasto a lunga lievitazione che rende unica la nostra pizza.
+                            Dalle focacce croccanti condite con ingredienti freschi ai calzoni dal cuore filante,
+                            ogni creazione è pensata per offrirti un sapore autentico e genuino.
+                            Scopri le nostre varianti classiche e le specialità della casa,
+                            farcite con salumi selezionati, formaggi di qualità e verdure di stagione.
                         </p>
-                        <a href="<?php echo BASE_URL ?>our-menu#VINI">SCOPRI LA NOSTRA CARTA DEI VINI</a>
+                        <a href="<?php echo BASE_URL ?>our-menu#FOCACCE">VEDI LE NOSTRE SPECIALITÀ</a>
                     </section>
                     <section class="vini__img">
-                        <img src="<?php echo BASE_URL; ?>public/assets/img/vista-frontal-copas-de-vino-uvas-frescas-nueces-queso-amarillo-sobre-tablero-de-madera-botella-volcada-sobre-fondo-oscuro.webp"
+                        <img src="<?php echo BASE_URL; ?>public/assets/img/focacce_calzoni.webp"
                             alt="Wine images">
                     </section>
                 </div>

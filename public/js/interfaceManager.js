@@ -1,14 +1,14 @@
 const header = document.querySelector('.header');
 const images = [
-    '/ristorante-tradizione/public/assets/img/cerrar-las-manos-sosteniendo-el-plato-de-comida.webp',
-    '/ristorante-tradizione/public/assets/img/chef-profesional-preparando-comida-en-la-cocina.webp',
-    '/ristorante-tradizione/public/assets/img/sabrosa-receta-italiana-de-pizza-tradicional-casera.webp'
+    '/ristorante-tradizione/public/assets/img/hero_margherita.webp',
+    '/ristorante-tradizione/public/assets/img/hero_focaccia.webp',
+    '/ristorante-tradizione/public/assets/img/hero_quattro_formaggi.webp'
 ];
 
 if (header) {
     let index = 0;
     function changeBackground() {
-        header.style.backgroundImage = `url('${images[index]}')`;
+        header.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.60)),url('${images[index]}')`;
         index = (index + 1) % images.length;
         const nextImage = new Image();
         nextImage.src = images[index];
@@ -139,6 +139,47 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert("Errore: " + error.message);
                 toggle.checked = !toggle.checked;
                 updateLabel(toggle.checked);
+            });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const popupToggle = document.getElementById('popup-toggle');
+    const popupStatusText = document.getElementById('popup-status-text');
+
+    if (!popupToggle || !popupStatusText) return;
+
+    const updatePopupLabel = (isActive) => {
+        popupStatusText.textContent = isActive ? "OFFLINE" : "ONLINE";
+        popupStatusText.style.color = isActive ? "#e74c3c" : "#2ecc71";
+    };
+
+    updatePopupLabel(popupToggle.checked);
+
+    popupToggle.addEventListener('change', () => {
+        const isChecked = popupToggle.checked ? 1 : 0;
+
+        fetch('/ristorante-tradizione/api/update-popup-status', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `status=${isChecked}`
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Errore di rete');
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    updatePopupLabel(popupToggle.checked);
+                } else {
+                    throw new Error(data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Popup Toggle Error:', error);
+                alert("Errore Popup: " + error.message);
+                popupToggle.checked = !popupToggle.checked;
+                updatePopupLabel(popupToggle.checked);
             });
     });
 });

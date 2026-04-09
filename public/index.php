@@ -15,7 +15,12 @@ if (isset($_SERVER['REQUEST_URI'])) {
 
         if ($view === 'api' && $id === 'update-maintenance') {
             require_once ROOT_PATH . 'app/controllers/update_maintenance.php';
-            exit; 
+            exit;
+        }
+
+        if ($view === 'api' && $id === 'update-popup-status') {
+            require_once ROOT_PATH . 'app/controllers/api/update-popup-status.php';
+            exit;
         }
     }
 }
@@ -29,5 +34,9 @@ if (file_exists($viewPath)) {
     require_once $controllerPath;
 } else {
     http_response_code(404);
-    include ROOT_PATH . 'app/views/404.php';
+    if (file_exists(ROOT_PATH . 'app/views/404.php')) {
+        include ROOT_PATH . 'app/views/404.php';
+    } else {
+        echo "404 - Pagina non trovata";
+    }
 }
