@@ -1,9 +1,13 @@
 RewriteEngine On
 RewriteBase /ristorante-tradizione/
 
+# EXCEPCIÓN: Si la petición va a la carpeta 'app', NO la mandes a 'public'
+RewriteCond %{REQUEST_URI} ^/ristorante-tradizione/app/ [NC]
+RewriteRule .* - [L]
+
 # Evita bucles infinitos si ya estamos en public
 RewriteCond %{REQUEST_URI} !^/ristorante-tradizione/public/
-# Redirige todo a la carpeta public conservando la URL original
+# Redirige todo lo demás a la carpeta public
 RewriteRule ^(.*)$ public/$1 [L]
 
 Options -Indexes -MultiViews

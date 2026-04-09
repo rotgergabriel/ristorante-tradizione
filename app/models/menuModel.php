@@ -27,7 +27,11 @@ function createCategory($conn, $name)
 function getMenuItemsByCategory($conn, $category_id)
 {
     $category_id = (int)$category_id;
-    $sql = "SELECT * FROM menu_items WHERE category_id = $category_id ORDER BY name ASC";
+
+    $sql = "SELECT * FROM menu_items 
+            WHERE category_id = $category_id 
+            ORDER BY id DESC";
+
     return mysqli_query($conn, $sql);
 }
 

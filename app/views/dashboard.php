@@ -4,6 +4,35 @@ require_once __DIR__ . '/../middleware/auth.php';
 require_once __DIR__ . '/../models/menuModel.php';
 require_once __DIR__ . '/../models/recipesModel.php';
 
+if (isset($_POST['submit_popup'])) {
+    $status = isset($_POST['popup_status']) ? 1 : 0;
+    $title = mysqli_real_escape_string($conn, $_POST['popup_title']);
+    $subtitle = mysqli_real_escape_string($conn, $_POST['popup_subtitle']);
+    $days = mysqli_real_escape_string($conn, $_POST['popup_days']);
+    $month = mysqli_real_escape_string($conn, $_POST['popup_month']);
+    $city = mysqli_real_escape_string($conn, $_POST['popup_city']);
+    $schedule = mysqli_real_escape_string($conn, $_POST['popup_schedule']); // Guardar como texto
+    $venue = mysqli_real_escape_string($conn, $_POST['popup_venue']);
+    $address = mysqli_real_escape_string($conn, $_POST['popup_address']);
+
+    // Actualizamos o insertamos (suponiendo ID 1 para el único popup)
+    $sql = "UPDATE popup_settings SET 
+            status=$status, title='$title', subtitle='$subtitle', 
+            days='$days', month='$month', city='$city', 
+            schedule='$schedule', venue='$venue', address='$address' 
+            WHERE id=1";
+
+    if (mysqli_query($conn, $sql)) {
+        echo "<script>alert('Popup aggiornato!'); window.location.href='" . BASE_URL . "dashboard?popup_open=1';</script>";
+        exit();
+    }
+}
+
+// Cargar datos actuales del popup
+$res_popup = mysqli_query($conn, "SELECT * FROM popup_settings WHERE id=1");
+$popup_data = mysqli_fetch_assoc($res_popup);
+$popupOpen = isset($_GET['popup_open']);
+
 if (isset($_POST['delete_menu_id'])) {
     deleteMenuItem($conn, $_POST['delete_menu_id']);
     header("Location: " . BASE_URL . "dashboard?menu_open=1");
@@ -117,8 +146,11 @@ $res_rec_list = mysqli_query($conn, "SELECT id, title FROM recipes $rec_filter O
 $res_maint = mysqli_query($conn, "SELECT setting_value FROM site_settings WHERE setting_key = 'maintenance_mode' LIMIT 1");
 $is_maintenance_on = (mysqli_fetch_assoc($res_maint)['setting_value'] == 1);
 
-$menuOpen = (isset($_GET['menu_query']) || isset($_GET['edit_menu_id']) || isset($_GET['menu_open']) || isset($_GET['pm']));
-$recipeOpen = (isset($_GET['edit_id']) || isset($_GET['filter_query']) || isset($_GET['p']));
+$isEditingMenu = isset($_GET['edit_menu_id']);
+$isEditingRecipe = isset($_GET['edit_id']);
+$menuOpen = (isset($_GET['menu_open']) || isset($_GET['menu_query']) || isset($_GET['pm']) || $isEditingMenu) && !$isEditingRecipe && !isset($_GET['popup_open']);
+$recipeOpen = (isset($_GET['p']) || isset($_GET['filter_query']) || $isEditingRecipe) && !$isEditingMenu && !isset($_GET['menu_open']) && !isset($_GET['popup_open']);
+$popupOpen = isset($_GET['popup_open']) && !$isEditingMenu && !$isEditingRecipe;
 
 $head_title = 'Dashboard di Gestione | Ristorante Pizzeria Tradizione';
 $pageKey = 'dashboard';
@@ -167,7 +199,7 @@ $pageKey = 'dashboard';
             <div class="native-accordion">
                 <details class="accordion-item" <?php echo $menuOpen ? 'open' : ''; ?>>
                     <summary class="accordion-header">
-                        <span class="header-title">Menú (Pizze, Bevande, Vini)</span>
+                        <span class="header-title">Menú (Pizze, Bevande, Ecc.)</span>
                         <span class="icon">▾</span>
                     </summary>
                     <div class="accordion-body">
@@ -178,19 +210,19 @@ $pageKey = 'dashboard';
                                     <input type="hidden" name="menu_id" value="<?php echo $menu_edit['id']; ?>">
                                     <div class="form-group">
                                         <label for="category_title">Titolo Categoria:</label>
-                                        <input type="text" id="category_title" name="category_title" value="<?php echo htmlspecialchars($menu_edit['category_name']); ?>" placeholder="es: LE NOSTRE PIZZE" required>
+                                        <input type="text" id="category_title" name="category_title" value="<?php echo htmlspecialchars($menu_edit['category_name']); ?>" placeholder="Es: LE NOSTRE PIZZE" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="product_title">Titolo del Prodotto:</label>
-                                        <input type="text" id="product_title" name="product_title" value="<?php echo htmlspecialchars($menu_edit['name']); ?>" placeholder="es: Pizza Margherita" required>
+                                        <input type="text" id="product_title" name="product_title" value="<?php echo htmlspecialchars($menu_edit['name']); ?>" placeholder="Es: Pizza Margherita" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="product_description">Descrizione / Ingredienti:</label>
-                                        <textarea id="product_description" name="product_description" rows="2" placeholder="es: Pomodoro..." required><?php echo htmlspecialchars($menu_edit['description']); ?></textarea>
+                                        <textarea id="product_description" name="product_description" rows="2" placeholder="Es: Pomodoro..." required><?php echo htmlspecialchars($menu_edit['description']); ?></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="product_price">Prezzo (€):</label>
-                                        <input type="text" id="product_price" name="product_price" value="<?php echo htmlspecialchars($menu_edit['price']); ?>" placeholder="es: 8,00" required>
+                                        <input type="text" id="product_price" name="product_price" value="<?php echo htmlspecialchars($menu_edit['price']); ?>" placeholder="Es: 8,00" required>
                                     </div>
                                     <div class="form-actions-edit">
                                         <button type="submit" name="submit_menu" class="btn-primary">💾 Salva nel Menú</button>
@@ -206,8 +238,10 @@ $pageKey = 'dashboard';
                                     <input type="text" name="menu_query" value="<?php echo isset($_GET['menu_query']) ? htmlspecialchars($_GET['menu_query']) : ''; ?>" placeholder="🔍 Filtra record...">
                                 </form>
                                 <div class="recipe-list">
-                                    <?php if ($res_menu_list && mysqli_num_rows($res_menu_list) > 0): ?>
-                                        <?php while ($m_item = mysqli_fetch_assoc($res_menu_list)): ?>
+                                    <?php
+                                    if ($res_menu_list && mysqli_num_rows($res_menu_list) > 0) {
+                                        while ($m_item = mysqli_fetch_assoc($res_menu_list)) {
+                                    ?>
                                             <div class="recipe-item">
                                                 <div class="item-info">
                                                     <span class="recipe-item-title">
@@ -223,18 +257,44 @@ $pageKey = 'dashboard';
                                                     </form>
                                                 </div>
                                             </div>
-                                        <?php endwhile; ?>
-                                    <?php else: ?>
+                                        <?php
+                                        }
+                                    } else {
+                                        ?>
                                         <p>Nessun elemento trovato.</p>
-                                    <?php endif; ?>
+                                    <?php
+                                    }
+                                    ?>
 
-                                    <?php if ($total_paginas_menu > 1): ?>
-                                        <div class="pagination">
-                                            <?php for ($i = 1; $i <= $total_paginas_menu; $i++): ?>
-                                                <a href="?pm=<?php echo $i . $menu_param; ?>&menu_open=1" class="<?php echo ($p_menu == $i) ? 'active' : ''; ?>"><?php echo $i; ?></a>
-                                            <?php endfor; ?>
-                                        </div>
-                                    <?php endif; ?>
+                                    <div class="pagination">
+                                        <?php
+                                        $rango = 1;
+
+                                        if (!function_exists('getMenuPageUrl')) {
+                                            function getMenuPageUrl($page, $menu_param)
+                                            {
+                                                return "?pm=" . $page . $menu_param . "&menu_open=1";
+                                            }
+                                        }
+
+                                        if ($p_menu > 1) {
+                                            echo "<a href='" . getMenuPageUrl(1, $menu_param) . "'>&laquo;</a>";
+                                        }
+
+                                        for ($i = 1; $i <= $total_paginas_menu; $i++) {
+                                            if ($i == 1 || $i == $total_paginas_menu || ($i >= $p_menu - $rango && $i <= $p_menu + $rango)) {
+                                                $class = ($p_menu == $i) ? 'active' : '';
+                                                echo "<a href='" . getMenuPageUrl($i, $menu_param) . "' class='$class'>$i</a>";
+                                            } elseif ($i == $p_menu - $rango - 1 || $i == $p_menu + $rango + 1) {
+                                                echo "<span class='pagination-dots' style='padding: 5px;'>...</span>";
+                                            }
+                                        }
+
+                                        if ($p_menu < $total_paginas_menu) {
+                                            echo "<a href='" . getMenuPageUrl($total_paginas_menu, $menu_param) . "'>&raquo;</a>";
+                                        }
+                                        ?>
+                                    </div>
                                 </div>
                             </section>
                         </div>
@@ -256,23 +316,23 @@ $pageKey = 'dashboard';
                                     <input type="hidden" name="recipe_id" value="<?php echo $row_edit['id'] ?>">
                                     <div class="form-group">
                                         <label for="recipe_title">Titolo:</label>
-                                        <input type="text" id="recipe_title" name="recipe_title" value="<?php echo htmlspecialchars($row_edit['title']) ?>" required>
+                                        <input type="text" id="recipe_title" name="recipe_title" placeholder="Es: Pizza Margherita" value="<?php echo htmlspecialchars($row_edit['title']) ?>" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="subtitle">Sottotitolo:</label>
-                                        <input type="text" id="subtitle" name="recipe_subtitle" value="<?php echo htmlspecialchars($row_edit['subtitle']) ?>" required>
+                                        <input type="text" id="subtitle" name="recipe_subtitle" placeholder="Es: La regina della tavola" value="<?php echo htmlspecialchars($row_edit['subtitle']) ?>" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="recipe_description">Descrizione:</label>
-                                        <textarea id="recipe_description" name="recipe_description" rows="3" required><?php echo htmlspecialchars($row_edit['description']) ?></textarea>
+                                        <textarea id="recipe_description" name="recipe_description" rows="3" placeholder="Breve introduzione alla ricetta..." required><?php echo htmlspecialchars($row_edit['description']) ?></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="complete_process">Procedimento:</label>
-                                        <textarea name="complete_process" id="complete_process" rows="3" required><?php echo htmlspecialchars($row_edit['complete_process']) ?></textarea>
+                                        <textarea name="complete_process" id="complete_process" rows="3" placeholder="Dettagli della preparazione..." required><?php echo htmlspecialchars($row_edit['complete_process']) ?></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="recipe_time">Tempo:</label>
-                                        <input type="text" id="recipe_time" name="recipe_time" value="<?php echo htmlspecialchars($row_edit['preparation_time']) ?>" required>
+                                        <input type="text" id="recipe_time" name="recipe_time" placeholder="Es: 20 min" value="<?php echo htmlspecialchars($row_edit['preparation_time']) ?>" required>
                                     </div>
                                     <div class="form-actions-edit">
                                         <button type="submit" name="submit" class="btn-primary">💾 Salva Ricetta</button>
@@ -284,11 +344,11 @@ $pageKey = 'dashboard';
                             <section class="list-column">
                                 <h2 class="section-title">Ricette Esistenti</h2>
                                 <form action="" method="GET" class="list-search-container form-group">
-                                    <input type="text" name="filter_query" placeholder="🔍 Filtra..." value="<?php echo isset($_GET['filter_query']) ? htmlspecialchars($_GET['filter_query']) : ''; ?>">
+                                    <input type="text" name="filter_query" placeholder="🔍 Filtra per titolo..." value="<?php echo isset($_GET['filter_query']) ? htmlspecialchars($_GET['filter_query']) : ''; ?>">
                                 </form>
                                 <div class="recipe-list">
-                                    <?php if ($res_rec_list && mysqli_num_rows($res_rec_list) > 0): ?>
-                                        <?php while ($row = mysqli_fetch_assoc($res_rec_list)): ?>
+                                    <?php if ($res_rec_list && mysqli_num_rows($res_rec_list) > 0) { ?>
+                                        <?php while ($row = mysqli_fetch_assoc($res_rec_list)) { ?>
                                             <div class="recipe-item">
                                                 <span class="recipe-item-title"><?php echo htmlspecialchars($row['title']); ?></span>
                                                 <div class="recipe-item-actions">
@@ -299,19 +359,110 @@ $pageKey = 'dashboard';
                                                     </form>
                                                 </div>
                                             </div>
-                                        <?php endwhile; ?>
-                                    <?php else: ?>
+                                        <?php } ?>
+                                    <?php } else { ?>
                                         <p>Nessuna ricetta trovata.</p>
-                                    <?php endif; ?>
+                                    <?php } ?>
 
-                                    <?php if ($total_paginas > 1): ?>
-                                        <div class="pagination">
-                                            <?php for ($i = 1; $i <= $total_paginas; $i++): ?>
-                                                <a href="?p=<?php echo $i . $rec_param; ?>" class="<?php echo ($p_rec == $i) ? 'active' : ''; ?>"><?php echo $i; ?></a>
-                                            <?php endfor; ?>
-                                        </div>
-                                    <?php endif; ?>
+                                    <div class="pagination">
+                                        <?php
+                                        $rango = 1;
+                                        function getRecipePageUrl($page, $rec_param)
+                                        {
+                                            return "?p=" . $page . $rec_param . "&recipe_open=1";
+                                        }
+                                        if ($p_rec > 1) {
+                                            echo "<a href='" . getRecipePageUrl(1, $rec_param) . "'>&laquo;</a>";
+                                        }
+                                        for ($i = 1; $i <= $total_paginas; $i++) {
+                                            if ($i == 1 || $i == $total_paginas || ($i >= $p_rec - $rango && $i <= $p_rec + $rango)) {
+                                                $class = ($p_rec == $i) ? 'active' : '';
+                                                echo "<a href='" . getRecipePageUrl($i, $rec_param) . "' class='$class'>$i</a>";
+                                            } elseif ($i == $p_rec - $rango - 1 || $i == $p_rec + $rango + 1) {
+                                                echo "<span class='pagination-dots' style='padding: 5px;'>...</span>";
+                                            }
+                                        }
+                                        if ($p_rec < $total_paginas) {
+                                            echo "<a href='" . getRecipePageUrl($total_paginas, $rec_param) . "'>&raquo;</a>";
+                                        }
+                                        ?>
+                                    </div>
                                 </div>
+                            </section>
+
+                        </div>
+                    </div>
+                </details>
+            </div>
+            <div class="native-accordion">
+                <details class="accordion-item" <?php echo $popupOpen ? 'open' : ''; ?>>
+                    <summary class="accordion-header">
+                        <span class="header-title">Gestione Popup Offerte</span>
+                        <span class="icon">▾</span>
+                    </summary>
+                    <div class="accordion-body">
+                        <div class="dashboard-container">
+                            <section class="content-section form-column" style="width: 100%; max-width: 800px; margin: 0 auto;">
+                                <h2 class="section-title">Configurazione Promo</h2>
+                                <form action="" method="POST" class="recipe-form">
+
+                                    <div class="form-group" style="flex-direction: row; align-items: center; gap: 10px; margin-bottom: 20px;">
+                                        <label class="switch">
+                                            <input type="checkbox" id="popup-toggle" name="popup_status" <?php echo ($popup_data['status'] == 1) ? 'checked' : ''; ?>>
+                                            <span class="slider round"></span>
+                                        </label>
+
+                                        <span id="popup-status-text" style="font-weight: bold; color: <?php echo ($popup_data['status'] == 1) ? '#074634' : '#e74c3c'; ?>;">
+                                            <?php echo ($popup_data['status'] == 1) ? 'ATTIVO' : 'INATTIVO'; ?>
+                                        </span>
+                                    </div>
+
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                        <div class="form-group">
+                                            <label>Titolo Superiore (Rosso):</label>
+                                            <input type="text" name="popup_title" value="<?php echo htmlspecialchars($popup_data['title']); ?>" placeholder="Es: OFFERTA SPECIALE">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Sottotitolo (Verde):</label>
+                                            <input type="text" name="popup_subtitle" value="<?php echo htmlspecialchars($popup_data['subtitle']); ?>" placeholder="Es: Martedì & Mercoledì">
+                                        </div>
+                                    </div>
+
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+                                        <div class="form-group">
+                                            <label>Testo Grande (Promo):</label>
+                                            <input type="text" name="popup_days" value="<?php echo htmlspecialchars($popup_data['days']); ?>" placeholder="Es: 2x1">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Dettaglio 1 (Sotto promo):</label>
+                                            <input type="text" name="popup_month" value="<?php echo htmlspecialchars($popup_data['month']); ?>" placeholder="Es: BIBITA">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Dettaglio 2 (Sotto promo):</label>
+                                            <input type="text" name="popup_city" value="<?php echo htmlspecialchars($popup_data['city']); ?>" placeholder="Es: GRATIS">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Contenuto Scatola Centrale:</label>
+                                        <textarea name="popup_schedule" rows="3" placeholder="Es: Martedì - In sala, Mercoledì - Asporto"><?php echo htmlspecialchars($popup_data['schedule']); ?></textarea>
+                                    </div>
+
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                        <div class="form-group">
+                                            <label>Nota Piè di Pagina (Forte):</label>
+                                            <input type="text" name="popup_venue" value="<?php echo htmlspecialchars($popup_data['venue']); ?>" placeholder="Es: PROMO VALIDA">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Nota Piè di Pagina (Dettaglio):</label>
+                                            <input type="text" name="popup_address" value="<?php echo htmlspecialchars($popup_data['address']); ?>" placeholder="Es: Acquistando 2 pizze">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-actions-edit">
+                                        <button type="submit" name="submit_popup" class="btn-primary">💾 Salva Configurazione</button>
+                                    </div>
+                                </form>
                             </section>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-<?php if (!empty($statusPopup) && is_array($schedulePopup)) { ?>
+<?php if (!empty($statusPopup)) { ?>
     <article class="event-card">
         <a type="button" class="event-card__close">&times;</a>
         <header class="event-card__header">
