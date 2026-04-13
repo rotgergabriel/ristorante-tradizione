@@ -1,20 +1,42 @@
 const header = document.querySelector('.header');
+const bgActive = document.querySelector('.header__bg--active');
+const bgNext = document.querySelector('.header__bg--next');
+
 const images = [
     '/ristorante-tradizione/public/assets/img/hero_margherita.webp',
     '/ristorante-tradizione/public/assets/img/hero_focaccia.webp',
     '/ristorante-tradizione/public/assets/img/hero_quattro_formaggi.webp'
 ];
 
-if (header) {
+const gradient = 'linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.60))';
+
+if (header && bgActive && bgNext) {
+    const preloaded = images.map(src => {
+        const img = new Image();
+        img.src = src;
+        return img;
+    });
+
     let index = 0;
-    function changeBackground() {
-        header.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.60)),url('${images[index]}')`;
-        index = (index + 1) % images.length;
-        const nextImage = new Image();
-        nextImage.src = images[index];
-    }
-    changeBackground();
-    setInterval(changeBackground, 5000);
+    let active = bgActive;
+    let next = bgNext;
+
+    Promise.all(preloaded.map(img => new Promise(resolve => {
+        if (img.complete) resolve();
+        else img.onload = resolve;
+    }))).then(() => {
+        active.style.backgroundImage = `${gradient}, url('${images[0]}')`;
+
+        setInterval(() => {
+            index = (index + 1) % images.length;
+
+            next.style.backgroundImage = `${gradient}, url('${images[index]}')`;
+            next.style.opacity = '1';
+            active.style.opacity = '0';
+
+            [active, next] = [next, active];
+        }, 5000);
+    });
 }
 
 const toggleScrollLock = (isLocked) => {
@@ -157,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updatePopupLabel(popupToggle.checked);
 
     popupToggle.addEventListener('change', () => {
-        const isChecked = popupToggle.checked ? 1 : 0;
+        const isChecked = popupToggle.checked ? 0 : 1;
 
         fetch('/ristorante-tradizione/api/update-popup-status', {
             method: 'POST',
