@@ -3,7 +3,7 @@
         <a type="button" class="event-card__close">&times;</a>
         <header class="event-card__header">
             <span class="event-card__org"><?php echo $titlePopup ?></span>
-            <h1 class="event-card__title"><?php echo $subtitlePopup ?></h1>
+            <h2 class="event-card__title"><?php echo $subtitlePopup ?></h2>
         </header>
 
         <div class="event-card__date-container">

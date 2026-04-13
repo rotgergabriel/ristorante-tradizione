@@ -25,13 +25,13 @@ $pageKey = 'carta';
                     <div class="menu-sidebar__gallery">
                         <img src="<?php echo BASE_URL ?>public/assets/img/margherita.webp" alt="Pizza Margherita" class="menu-sidebar__image">
                         <img src="<?php echo BASE_URL ?>public/assets/img/coca-cola.webp" alt="Bevande" class="menu-sidebar__image">
-                        <img src="<?php echo BASE_URL ?>public/assets/img/vino-con-comida-sobre-fondo-de-madera.webp" alt="I Nostri Vini" class="menu-sidebar__image">
+                        <img src="<?php echo BASE_URL ?>public/assets/img/focacce_calzoni.webp" alt="Focacce_calzoni" class="menu-sidebar__image">
                     </div>
                 </aside>
 
                 <section class="menu-page__content">
                     <div class="page-banner"></div>
-                    <h1 class="menu-header__title">IL MENÙ</h1>
+                    <h1 class="menu-header__title">La Carta</h1>
 
                     <?php if ($res_categories && mysqli_num_rows($res_categories) > 0) { ?>
                         <?php while ($cat = mysqli_fetch_assoc($res_categories)) {

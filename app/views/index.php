@@ -1,36 +1,32 @@
 <?php
 require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../models/indexModel.php';
+require_once __DIR__ . '/../models/popupModel.php';
 
 $res_lista      = getHomeRecipeTitles($conn);
 $stmt_carrousel = getCarouselRecipes($conn, 3);
 $res_random     = getRandomHomeRecipes($conn, 3);
 
 $all_recipes = formatResultSetToArray($res_random);
-$head_title = 'Ristorante Pizzeria Il Cairo';
+$head_title = 'Ristorante Pizzeria Tradizione';
 
 // Popup section
-$res_popup = mysqli_query($conn, "SELECT * FROM popup_settings WHERE id = 1 LIMIT 1");
-$popup_data = mysqli_fetch_assoc($res_popup);
+$popup_data_raw = getPopupData($conn);
 
-if ($popup_data) {
-    $statusPopup   = ($popup_data['status'] == 1);
-    $titlePopup    = $popup_data['title'];
-    $subtitlePopup = $popup_data['subtitle'];
-    $daysPopup     = $popup_data['days'];
-    $monthPopup    = $popup_data['month'];
-    $cityPopup     = $popup_data['city'];
-    $schedulePopup = !empty($popup_data['schedule']) ? explode(',', $popup_data['schedule']) : [];
-    $locationPopup = [
-        'icon'    => 'icons8-pizza-100.png',
-        'venue'   => $popup_data['venue'] ?? '',
-        'address' => $popup_data['address'] ?? ''
-    ];
-} else {
-    $statusPopup = false;
-    $locationPopup = ['icon' => '', 'venue' => '', 'address' => ''];
-    $schedulePopup = [];
-}
+$statusPopup   = ($popup_data_raw['popup_mode'] ?? 0) == 1;
+$titlePopup    = $popup_data_raw['popup_title']    ?? '';
+$subtitlePopup = $popup_data_raw['popup_subtitle'] ?? '';
+$daysPopup     = $popup_data_raw['popup_days']     ?? '';
+$monthPopup    = $popup_data_raw['popup_month']    ?? '';
+$cityPopup     = $popup_data_raw['popup_city']     ?? '';
+$schedulePopup = !empty($popup_data_raw['popup_schedule'])
+    ? explode(',', $popup_data_raw['popup_schedule'])
+    : [];
+$locationPopup = [
+    'icon'    => 'icons8-pizza-100.png',
+    'venue'   => $popup_data_raw['popup_venue']   ?? '',
+    'address' => $popup_data_raw['popup_address'] ?? '',
+];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,9 +41,8 @@ if ($popup_data) {
     <div class="layout" id="top">
         <!-- Header section -->
         <header class="header">
-            <div class="bg bg1"></div>
-            <div class="bg bg2"></div>
-            <div class="bg bg3"></div>
+            <div class="header__bg header__bg--active"></div>
+            <div class="header__bg header__bg--next"></div>
 
             <!-- Header Nav Section start-->
             <?php

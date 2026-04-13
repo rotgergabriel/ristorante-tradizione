@@ -3,35 +3,43 @@ require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../middleware/auth.php';
 require_once __DIR__ . '/../models/menuModel.php';
 require_once __DIR__ . '/../models/recipesModel.php';
+require_once __DIR__ . '/../models/popupModel.php';
 
 if (isset($_POST['submit_popup'])) {
-    $status = isset($_POST['popup_status']) ? 1 : 0;
-    $title = mysqli_real_escape_string($conn, $_POST['popup_title']);
-    $subtitle = mysqli_real_escape_string($conn, $_POST['popup_subtitle']);
-    $days = mysqli_real_escape_string($conn, $_POST['popup_days']);
-    $month = mysqli_real_escape_string($conn, $_POST['popup_month']);
-    $city = mysqli_real_escape_string($conn, $_POST['popup_city']);
-    $schedule = mysqli_real_escape_string($conn, $_POST['popup_schedule']); // Guardar como texto
-    $venue = mysqli_real_escape_string($conn, $_POST['popup_venue']);
-    $address = mysqli_real_escape_string($conn, $_POST['popup_address']);
-
-    // Actualizamos o insertamos (suponiendo ID 1 para el único popup)
-    $sql = "UPDATE popup_settings SET 
-            status=$status, title='$title', subtitle='$subtitle', 
-            days='$days', month='$month', city='$city', 
-            schedule='$schedule', venue='$venue', address='$address' 
-            WHERE id=1";
-
-    if (mysqli_query($conn, $sql)) {
+    $ok = updatePopupData(
+        $conn,
+        isset($_POST['popup_status']) ? 0 : 1,
+        $_POST['popup_title']    ?? '',
+        $_POST['popup_subtitle'] ?? '',
+        $_POST['popup_days']     ?? '',
+        $_POST['popup_month']    ?? '',
+        $_POST['popup_city']     ?? '',
+        $_POST['popup_schedule'] ?? '',
+        $_POST['popup_venue']    ?? '',
+        $_POST['popup_address']  ?? ''
+    );
+    if ($ok) {
         echo "<script>alert('Popup aggiornato!'); window.location.href='" . BASE_URL . "dashboard?popup_open=1';</script>";
         exit();
     }
 }
 
-// Cargar datos actuales del popup
-$res_popup = mysqli_query($conn, "SELECT * FROM popup_settings WHERE id=1");
-$popup_data = mysqli_fetch_assoc($res_popup);
-$popupOpen = isset($_GET['popup_open']);
+$popup_data_raw = getPopupData($conn);
+$popup_data = [
+    'status'   => $popup_data_raw['popup_mode']    ?? 0,
+    'title'    => $popup_data_raw['popup_title']    ?? '',
+    'subtitle' => $popup_data_raw['popup_subtitle'] ?? '',
+    'days'     => $popup_data_raw['popup_days']     ?? '',
+    'month'    => $popup_data_raw['popup_month']    ?? '',
+    'city'     => $popup_data_raw['popup_city']     ?? '',
+    'schedule' => $popup_data_raw['popup_schedule'] ?? '',
+    'venue'    => $popup_data_raw['popup_venue']    ?? '',
+    'address'  => $popup_data_raw['popup_address']  ?? '',
+];
+
+$isEditingMenu   = isset($_GET['edit_menu_id']);
+$isEditingRecipe = isset($_GET['edit_id']);
+$popupOpen = isset($_GET['popup_open']) && !$isEditingMenu && !$isEditingRecipe;
 
 if (isset($_POST['delete_menu_id'])) {
     deleteMenuItem($conn, $_POST['delete_menu_id']);
@@ -397,7 +405,7 @@ $pageKey = 'dashboard';
             <div class="native-accordion">
                 <details class="accordion-item" <?php echo $popupOpen ? 'open' : ''; ?>>
                     <summary class="accordion-header">
-                        <span class="header-title">Gestione Popup Offerte</span>
+                        <span class="header-title">Popup Offerte</span>
                         <span class="icon">▾</span>
                     </summary>
                     <div class="accordion-body">
@@ -408,12 +416,12 @@ $pageKey = 'dashboard';
 
                                     <div class="form-group" style="flex-direction: row; align-items: center; gap: 10px; margin-bottom: 20px;">
                                         <label class="switch">
-                                            <input type="checkbox" id="popup-toggle" name="popup_status" <?php echo ($popup_data['status'] == 1) ? 'checked' : ''; ?>>
+                                            <input type="checkbox" id="popup-toggle" name="popup_status" <?php echo ($popup_data['status'] == 0) ? 'checked' : ''; ?>>
                                             <span class="slider round"></span>
                                         </label>
 
-                                        <span id="popup-status-text" style="font-weight: bold; color: <?php echo ($popup_data['status'] == 1) ? '#074634' : '#e74c3c'; ?>;">
-                                            <?php echo ($popup_data['status'] == 1) ? 'ATTIVO' : 'INATTIVO'; ?>
+                                        <span id="popup-status-text" style="font-weight: bold; color: <?php echo ($popup_data['status'] == 0) ? '#2ecc71' : '#e74c3c'; ?>;">
+                                            <?php echo ($popup_data['status'] == 0) ? 'ONLINE' : 'OFFLINE'; ?>
                                         </span>
                                     </div>
 
