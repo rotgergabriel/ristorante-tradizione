@@ -14,10 +14,10 @@
         <!-- Navigation links list -->
         <ul class="menu-overlay__list">
             <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>">HOME</a></li>
-            <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>#chi_siamo">CHI SIAMO</a></li>
             <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>#le_nostre_ricette">LE NOSTRE RICETTE</a></li>
             <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>#servizio_a_domicilio">SERVIZIO A DOMICILIO</a></li>
             <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>our-menu">LA CARTA</a></li>
+            <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>#chi_siamo">CHI SIAMO</a></li>
             <li class="menu-overlay__item"><a href="<?php echo BASE_URL; ?>#contact">CONTATTI</a></li>
         </ul>
     </nav>

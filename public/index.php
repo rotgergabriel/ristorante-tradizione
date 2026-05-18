@@ -19,6 +19,7 @@ if (isset($_SERVER['REQUEST_URI'])) {
         }
 
         if ($view === 'api' && $id === 'update-popup-status') {
+            require_once ROOT_PATH . 'app/controllers/update-popup-status.php';
             exit;
         }
     }

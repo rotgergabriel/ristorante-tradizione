@@ -70,18 +70,6 @@ $locationPopup = [
         </header>
         <!-- Main section -->
         <main class="main">
-            <!-- About section -->
-            <section id="chi_siamo" class="text-block delivery-info">
-                <h2>CHI SIAMO</h2>
-                <p>
-                    Benvenuti da <strong>Il Cairo</strong>, dove la passione per la cucina incontra l'accoglienza di una gestione familiare nel cuore di Vigone.
-                    Siamo nati con l'obiettivo di offrire un punto d'incontro unico, dove la tradizione della pizza italiana si intreccia con i sapori ricchi e speziati del miglior Kebab e dei Tacos più gustosi.
-                </p>
-                <p>
-                    Ogni giorno selezioniamo ingredienti freschi per garantire qualità in ogni preparazione, dal nostro impasto a lunga lievitazione alle carni sapientemente condite.
-                    Per noi, non si tratta solo di servire cibo, ma di creare un'esperienza autentica fatta di calore e convivialità. Che sia una cena veloce o un momento da condividere, ogni ospite diventa parte della nostra storia.
-                </p>
-            </section>
             <!-- Carrousel section -->
             <section class="carrousel">
                 <?php while ($all_recipes_carrousel = mysqli_fetch_assoc($stmt_carrousel)) { ?>
@@ -188,6 +176,27 @@ $locationPopup = [
                             alt="Wine images">
                     </section>
                 </div>
+            </section>
+            <!-- About section -->
+            <section id="chi_siamo" class="native-accordion">
+                <details class="accordion-item">
+                    <summary class="accordion-header">
+                        <span class="header-title">CHI SIAMO</span>
+                        <span class="icon">▾</span>
+                    </summary>
+                    <div class="accordion-body">
+                        <div class="text-block delivery-info" style="margin: 0; padding: 0; width: 100%;">
+                            <p style="margin-bottom: 15px;">
+                                Benvenuti da <strong>Il Cairo</strong>, dove la passione per la cucina incontra l'accoglienza di una gestione familiare nel cuore di Vigone.
+                                Siamo nati con l'obiettivo di offrire un punto d'incontro unico, dove la tradizione della pizza italiana si intreccia con i sapori ricchi e speziati del miglior Kebab e dei Tacos più gustosi.
+                            </p>
+                            <p>
+                                Ogni giorno selezioniamo ingredienti freschi per garantire qualità in ogni preparazione, dal nostro impasto a lunga lievitazione alle carni sapientemente condite.
+                                Per noi, non si tratta solo di servire cibo, ma di creare un'esperienza autentica fatta di calore e convivialità.
+                            </p>
+                        </div>
+                    </div>
+                </details>
             </section>
             <!-- Up Button start -->
             <?php

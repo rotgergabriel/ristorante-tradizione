@@ -207,13 +207,13 @@ $pageKey = 'dashboard';
             <div class="native-accordion">
                 <details class="accordion-item" <?php echo $menuOpen ? 'open' : ''; ?>>
                     <summary class="accordion-header">
-                        <span class="header-title">Menú (Pizze, Bevande, Ecc.)</span>
+                        <span class="header-title">La Carta</span>
                         <span class="icon">▾</span>
                     </summary>
                     <div class="accordion-body">
                         <div class="dashboard-container">
                             <section class="content-section form-column">
-                                <h2 class="section-title"><?php echo $menu_edit['id'] ? 'Modifica Elemento' : 'Aggiungi al Menú'; ?></h2>
+                                <h2 class="section-title"><?php echo $menu_edit['id'] ? 'Modifica Elemento' : 'Aggiungi alla Carta'; ?></h2>
                                 <form action="" method="POST" class="recipe-form">
                                     <input type="hidden" name="menu_id" value="<?php echo $menu_edit['id']; ?>">
                                     <div class="form-group">
@@ -240,7 +240,7 @@ $pageKey = 'dashboard';
                             </section>
 
                             <section class="list-column">
-                                <h2 class="section-title">Elementi nel Menú</h2>
+                                <h2 class="section-title">Elenco della Carta</h2>
                                 <form action="" method="GET" class="list-search-container form-group">
                                     <input type="hidden" name="menu_open" value="1">
                                     <input type="text" name="menu_query" value="<?php echo isset($_GET['menu_query']) ? htmlspecialchars($_GET['menu_query']) : ''; ?>" placeholder="🔍 Filtra record...">
@@ -319,7 +319,7 @@ $pageKey = 'dashboard';
                     <div class="accordion-body">
                         <div class="dashboard-container">
                             <section class="content-section form-column">
-                                <h2 class="section-title"><?php echo $row_edit['id'] ? 'Modifica Ricetta' : 'Aggiungi Ricetta'; ?></h2>
+                                <h2 class="section-title"><?php echo $row_edit['id'] ? 'Modifica Ricetta' : 'Aggiungi alle Ricette'; ?></h2>
                                 <form action="" method="POST" class="recipe-form">
                                     <input type="hidden" name="recipe_id" value="<?php echo $row_edit['id'] ?>">
                                     <div class="form-group">
@@ -350,7 +350,7 @@ $pageKey = 'dashboard';
                             </section>
 
                             <section class="list-column">
-                                <h2 class="section-title">Ricette Esistenti</h2>
+                                <h2 class="section-title">Elenco delle Ricette</h2>
                                 <form action="" method="GET" class="list-search-container form-group">
                                     <input type="text" name="filter_query" placeholder="🔍 Filtra per titolo..." value="<?php echo isset($_GET['filter_query']) ? htmlspecialchars($_GET['filter_query']) : ''; ?>">
                                 </form>
@@ -403,7 +403,7 @@ $pageKey = 'dashboard';
                 </details>
             </div>
             <div class="native-accordion">
-                <details class="accordion-item" <?php echo $popupOpen ? 'open' : ''; ?>>
+                <details class="accordion-item">
                     <summary class="accordion-header">
                         <span class="header-title">Popup Offerte</span>
                         <span class="icon">▾</span>
